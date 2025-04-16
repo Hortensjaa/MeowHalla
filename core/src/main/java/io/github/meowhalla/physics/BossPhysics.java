@@ -1,7 +1,7 @@
 package io.github.meowhalla.physics;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.contexts.BossContext;
+import io.github.meowhalla.classes.BossContext;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package io.github.meowhalla.graphics;
 
-import io.github.meowhalla.contexts.BossContext;
+import io.github.meowhalla.classes.BossContext;
 
 public class BossGraphics {
     BossContext ctx;

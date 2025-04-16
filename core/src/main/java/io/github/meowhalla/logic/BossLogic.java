@@ -1,7 +1,7 @@
 package io.github.meowhalla.logic;
 
 
-import io.github.meowhalla.contexts.BossContext;
+import io.github.meowhalla.classes.BossContext;
 
 public class BossLogic {
 

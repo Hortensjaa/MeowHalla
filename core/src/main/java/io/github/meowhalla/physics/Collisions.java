@@ -1,7 +1,7 @@
 package io.github.meowhalla.physics;
 
-import io.github.meowhalla.contexts.BossContext;
-import io.github.meowhalla.contexts.PlayerContext;
+import io.github.meowhalla.classes.BossContext;
+import io.github.meowhalla.classes.PlayerContext;
 
 public class Collisions {
 

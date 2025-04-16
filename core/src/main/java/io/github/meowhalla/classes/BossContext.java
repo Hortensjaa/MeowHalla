@@ -1,4 +1,4 @@
-package io.github.meowhalla.contexts;
+package io.github.meowhalla.classes;
 
 import io.github.meowhalla.graphics.BossGraphics;
 import io.github.meowhalla.logic.BossLogic;

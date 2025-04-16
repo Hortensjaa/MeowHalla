@@ -1,37 +1,30 @@
 package io.github.meowhalla.screens;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import io.github.meowhalla.contexts.PlayerContext;
-
-import java.awt.*;
+import io.github.meowhalla.classes.GameContext;
 
 
 public class FirstScreen implements Screen {
 
-    private PlayerContext player;
+    private GameContext ctx;
     private SpriteBatch batch;
 
     @Override
     public void show() {
         batch = new SpriteBatch();
-        player = new PlayerContext();
+        ctx = new GameContext();
     }
 
     @Override
     public void render(float delta) {
-        player.update(delta);
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         batch.begin();
-        player.render(batch);
+        ctx.update(delta);
+        ctx.render(batch);
         batch.end();
     }
 
@@ -46,7 +39,7 @@ public class FirstScreen implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
-        player.dispose();
+        ctx.dispose();
     }
 }
 
