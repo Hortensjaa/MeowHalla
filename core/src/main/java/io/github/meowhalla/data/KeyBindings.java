@@ -1,7 +1,9 @@
 package io.github.meowhalla.data;
 
 import com.badlogic.gdx.Input;
+import lombok.Getter;
 
+@Getter
 public enum KeyBindings {
     RIGHT(Input.Keys.RIGHT),
     LEFT(Input.Keys.LEFT),
@@ -13,10 +15,6 @@ public enum KeyBindings {
 
     KeyBindings(int keyCode) {
         this.keyCode = keyCode;
-    }
-
-    public int getKeyCode() {
-        return keyCode;
     }
 
     public void setKeyCode(int keyCode) {

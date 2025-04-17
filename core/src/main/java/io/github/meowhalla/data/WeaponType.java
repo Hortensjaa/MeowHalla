@@ -8,7 +8,7 @@ public enum WeaponType {
         new WeaponContext(
         "Magic Crusher",
             20,
-            "Magic Orb.png",
+            "weapons/Magic Orb.png",
             0.5f,
             new Vector2(350, 0),
             20
@@ -18,7 +18,7 @@ public enum WeaponType {
         new WeaponContext(
             "Light Blessing",
             13,
-            "Pure Bolt 2.png",
+            "weapons/Pure Bolt 2.png",
             0.3f,
             new Vector2(700, 0),
             8

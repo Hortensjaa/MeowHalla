@@ -15,7 +15,7 @@ public record PlayerLogic(PlayerContext ctx) {
 
         if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
             ctx.state.setAction(Action.ATTACK);
-        } else if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
+        } if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
             ctx.state.setAction(Action.JUMP);
             ctx.physics.jump();
         } else if (left && !right) {

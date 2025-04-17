@@ -19,7 +19,7 @@ public class PlayerGraphics {
 
     public PlayerGraphics(PlayerContext ctx) {
         this.ctx = ctx;
-        catSheet = new Texture(Gdx.files.internal("player.png"));
+        catSheet = new Texture(Gdx.files.internal("player/player.png"));
         TextureRegion[][] frames = TextureRegion.split(catSheet, 290, 261);
         TextureRegion frame1 = frames[0][0];
         TextureRegion frame2 = frames[0][1];
