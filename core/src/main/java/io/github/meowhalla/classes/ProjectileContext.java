@@ -12,11 +12,11 @@ import lombok.Setter;
 public class ProjectileContext implements DynamicObject {
 
     @Getter @Setter private Vector2 velocity;
-    @Getter private final float power;
-    @Getter private final Circle position;
+    @Getter private float power;
+    @Getter private Circle position;
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private final ProjectileGraphics graphics;
+    private ProjectileGraphics graphics;
 
     public ProjectileContext(Vector2 position, Vector2 velocity, String fileName, float power, float radius) {
         this.position = new Circle(position.x, position.y, radius);
@@ -34,10 +34,13 @@ public class ProjectileContext implements DynamicObject {
         graphics.render(batch);
     }
 
-    public void reset(float x, float y, float vx, float vy) {
-        position.setPosition(x, y);
-        velocity.set(vx, vy);
+    public void reset(Vector2 position, Vector2 velocity, String fileName, float power, float radius) {
+        this.position = new Circle(position.x, position.y, radius);
+        this.velocity.set(velocity);
+        this.power = power;
+        this.graphics = new ProjectileGraphics(this, fileName);
     }
+
 
     public boolean isOffScreen() {
         return position.x + position.radius < 0 ||

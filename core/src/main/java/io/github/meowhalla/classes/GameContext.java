@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -41,23 +42,23 @@ public class GameContext {
         camera.update();
         timeSinceLastShot = 0;
         player = new PlayerContext(this);
-        weapon = WeaponType.LIGHT_BLESSING.data;
+        weapon = WeaponType.SHURIKENS_OF_LIGHT.data;
     }
 
     public void update(float delta) {
         timeSinceLastShot += delta;
 
         if (Gdx.input.isKeyPressed(Input.Keys.X) && timeSinceLastShot >= weapon.cooldown()) {
-            ProjectileContext bullet = bulletPool.obtain();
-            float vx = weapon.velocity().x;
-            if (player.state.getDirection() == Direction.RIGHT) {
-                bullet.reset(player.rightBorder().x, player.rightBorder().y, vx, 0f);
-            } else {
-                bullet.reset(player.leftBorder().x, player.leftBorder().y, -vx, 0f);
-            }
-            projectiles.add(bullet);
+            Vector2 origin = player.state.getDirection() == Direction.RIGHT
+                ? player.rightBorder()
+                : player.leftBorder();
+
+            List<ProjectileContext> fired = weapon.behavior()
+                .shoot(origin, player.state.getDirection(), weapon, bulletPool);
+            projectiles.addAll(fired);
             timeSinceLastShot = 0f;
         }
+
 
         player.update(delta);
 
