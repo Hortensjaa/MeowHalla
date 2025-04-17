@@ -4,6 +4,7 @@ public enum Action {
     WAIT,
     RUN,
     JUMP,
+    FALL,
     ATTACK,
     GUARD
 }

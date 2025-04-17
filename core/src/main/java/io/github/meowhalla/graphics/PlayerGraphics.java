@@ -24,6 +24,8 @@ public class PlayerGraphics {
         TextureRegion frame1 = frames[0][0];
         TextureRegion frame2 = frames[0][1];
         idleFrame = new TextureRegion(frame1);
+        ctx.state.getPosition().setWidth(290 * 0.25f);
+        ctx.state.getPosition().setHeight(261 * 0.25f);
 
         runAnimation = new Animation<>(0.2f, frame1, frame2);
         runAnimation.setPlayMode(Animation.PlayMode.LOOP);
@@ -33,6 +35,7 @@ public class PlayerGraphics {
         Rectangle r = ctx.state.getPosition();
 
         TextureRegion currentFrame;
+        System.out.println(ctx.state.getAction());
 
         if (ctx.state.getAction() == Action.RUN) {
             stateTime += Gdx.graphics.getDeltaTime();

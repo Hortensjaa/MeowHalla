@@ -6,15 +6,21 @@ import io.github.meowhalla.graphics.PlayerGraphics;
 import io.github.meowhalla.logic.PlayerLogic;
 import io.github.meowhalla.physics.PlayerPhysics;
 import io.github.meowhalla.states.PlayerState;
+import lombok.Getter;
 
 public class PlayerContext implements DynamicObject {
-    public PlayerState state = new PlayerState(100, 100, 64, 64);
+    public PlayerState state = new PlayerState(0, 0, 0, 0);
     public PlayerLogic logic = new PlayerLogic(this);
     public PlayerPhysics physics = new PlayerPhysics(this);
     public PlayerGraphics graphics = new PlayerGraphics(this);
+    @Getter private final GameContext gameContext;
+
+    public PlayerContext(GameContext gameContext) {
+        this.gameContext = gameContext;
+    }
 
     public void update(float delta) {
-        logic.update();
+        logic.update(delta);
         physics.update(delta);
     }
 

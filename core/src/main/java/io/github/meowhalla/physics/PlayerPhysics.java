@@ -1,12 +1,11 @@
 package io.github.meowhalla.physics;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.PlayerContext;
+import io.github.meowhalla.data.KeyBindings;
 import io.github.meowhalla.states.Action;
-import io.github.meowhalla.states.ActionState;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 
@@ -14,44 +13,64 @@ import lombok.Getter;
 public class PlayerPhysics {
     private final PlayerContext ctx;
     @Getter private final Vector2 velocity = new Vector2();
+    private final float maxSpeed = 500f;
+    private final float jumpStrength = 900f;
+    private final float gravity = 2000f;
+    @Getter private boolean isGrounded = true;
 
     public PlayerPhysics(PlayerContext ctx) {
         this.ctx = ctx;
     }
 
+    public void moveLeft() {
+        velocity.x = -maxSpeed;
+        ctx.state.getActionState().setDirection(Direction.LEFT);
+    }
+
+    public void moveRight() {
+        velocity.x = maxSpeed;
+        ctx.state.getActionState().setDirection(Direction.RIGHT);
+    }
+
+
+    public void jump() {
+        if (isGrounded) {
+            velocity.y = jumpStrength;
+            isGrounded = false;
+        }
+    }
+
     public void update(float delta) {
+        float worldWidth = ctx.getGameContext().getViewport().getWorldWidth();
         Rectangle rect = ctx.state.getPosition();
-        ActionState state = ctx.state.getActionState();
 
-        float targetX = 0;
-
-        float maxSpeed = 350f;
-        if (state.getDirection() == Direction.LEFT && state.getAction() == Action.RUN) {
-            targetX = -maxSpeed;
-        } else if (state.getDirection() == Direction.RIGHT && state.getAction() == Action.RUN) {
-            targetX = maxSpeed;
+        if (!Gdx.input.isKeyPressed(KeyBindings.LEFT.getKeyCode()) &&
+            !Gdx.input.isKeyPressed(KeyBindings.RIGHT.getKeyCode())) {
+            velocity.x = 0;
         }
 
-        float acceleration = 1500f;
-        if (velocity.x < targetX) {
-            velocity.x = Math.min(velocity.x + acceleration * delta, targetX);
-        } else if (velocity.x > targetX) {
-            velocity.x = Math.max(velocity.x - acceleration * delta, targetX);
-        }
+        velocity.y -= gravity * delta;
 
-        if (targetX == 0) {
-            float friction = 600f;
-            if (velocity.x > 0) {
-                velocity.x = Math.max(0, velocity.x - friction * delta);
-            } else if (velocity.x < 0) {
-                velocity.x = Math.min(0, velocity.x + friction * delta);
-            }
-        }
-
+        rect.y += velocity.y * delta;
         rect.x += velocity.x * delta;
 
-        float screenWidth = Gdx.graphics.getWidth();
-        rect.x = MathUtils.clamp(rect.x, 0, screenWidth - rect.width);
+        if (rect.y <= 0) {
+            rect.y = 0;
+            velocity.y = 0;
+            isGrounded = true;
+        } else {
+            isGrounded = false;
+        }
+
+        if (velocity.y < 0) {
+            ctx.state.getActionState().setAction(Action.FALL);
+        }
+
+        if (rect.x < 0) rect.x = 0;
+        if (rect.x + rect.width > worldWidth) {
+            rect.x = worldWidth - rect.width;
+        }
     }
 }
+
 

@@ -3,11 +3,16 @@ package io.github.meowhalla.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.meowhalla.classes.GameContext;
 
 
 public class FirstScreen implements Screen {
+    private OrthographicCamera camera;
+    private Viewport viewport;
 
     private GameContext ctx;
     private SpriteBatch batch;
@@ -15,20 +20,33 @@ public class FirstScreen implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(1280, 720, camera);
+        viewport.apply();
+
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.update();
+
         ctx = new GameContext();
     }
+
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.setProjectionMatrix(ctx.getCamera().combined);
         batch.begin();
         ctx.update(delta);
         ctx.render(batch);
         batch.end();
     }
 
-    @Override public void resize(int width, int height) {}
+    @Override
+    public void resize(int width, int height) {
+        ctx.resize(width, height);
+    }
 
     @Override public void pause() {}
 

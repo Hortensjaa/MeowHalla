@@ -2,8 +2,11 @@ package io.github.meowhalla.classes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.meowhalla.data.WeaponType;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
@@ -18,6 +21,10 @@ public class GameContext {
     private final List<DynamicObject> projectiles = new ArrayList<>();
     private final WeaponContext weapon;
     private float timeSinceLastShot;
+    private final OrthographicCamera camera;
+    private final Viewport viewport;
+
+
     private final Pool<ProjectileContext> bulletPool = new Pool<>() {
         @Override
         protected ProjectileContext newObject() {
@@ -27,9 +34,14 @@ public class GameContext {
 
 
     public GameContext() {
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(1280, 720, camera);
+        viewport.apply();
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.update();
         timeSinceLastShot = 0;
-        player = new PlayerContext();
-        weapon = WeaponType.MAGIC_CRUSHER.data;
+        player = new PlayerContext(this);
+        weapon = WeaponType.LIGHT_BLESSING.data;
     }
 
     public void update(float delta) {
@@ -38,7 +50,6 @@ public class GameContext {
         if (Gdx.input.isKeyPressed(Input.Keys.X) && timeSinceLastShot >= weapon.cooldown()) {
             ProjectileContext bullet = bulletPool.obtain();
             float vx = weapon.velocity().x;
-            System.out.println(player.state.getDirection());
             if (player.state.getDirection() == Direction.RIGHT) {
                 bullet.reset(player.rightBorder().x, player.rightBorder().y, vx, 0f);
             } else {
@@ -66,6 +77,12 @@ public class GameContext {
         player.render(batch);
         for (DynamicObject p : projectiles) p.render(batch);
     }
+
+    public void resize(int width, int height) {
+        viewport.update(width, height);
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+    }
+
 
     public void dispose() {
         player.dispose();
