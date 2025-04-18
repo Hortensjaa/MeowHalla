@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public record WeaponContext(
     String name,
-    float power,
+    int power,
     String fileName,
     float cooldown,
     Vector2 velocity,

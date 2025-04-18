@@ -37,7 +37,7 @@ public class WolfBossLogic extends CharacterLogic {
                 origin.y *= 1.5f;
             }
             ctx.timeSinceLastShot = 0f;
-            return ctx.weapon.behavior().shoot(origin, ctx.state.getDirection(), ctx.weapon, bulletPool);
+            return ctx.weapon.behavior().shoot(origin, ctx.state.getDirection(), ctx.weapon, ctx, bulletPool);
         }
         return null;
     }

@@ -2,6 +2,8 @@ package io.github.meowhalla.classes;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -29,7 +31,7 @@ public class GameContext {
     private final Pool<ProjectileContext> bulletPool = new Pool<>() {
         @Override
         protected ProjectileContext newObject() {
-            return new ProjectileContext(new Vector2(), new Vector2(), "weapons/Arcane Bolt.png", 1f, 10f);
+            return new ProjectileContext(new Vector2(), new Vector2(), "weapons/Arcane Bolt.png", 1, 10f);
         }
     };
 
@@ -51,16 +53,7 @@ public class GameContext {
         shoot(player);
         shoot(boss);
 
-        Iterator<DynamicObject> iterator = projectiles.iterator();
-        while (iterator.hasNext()) {
-            ProjectileContext p = (ProjectileContext) iterator.next();
-            p.update(delta);
-
-            if (p.isOffScreen()) {
-                iterator.remove();
-                bulletPool.free(p);
-            }
-        }
+        checkCollisions(delta);
     }
 
     private void shoot(CharacterContext character) {
@@ -71,7 +64,6 @@ public class GameContext {
             }
         }
     }
-
 
     public void render(SpriteBatch batch) {
         player.render(batch);
@@ -84,6 +76,35 @@ public class GameContext {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
     }
 
+    public void checkCollisions(float delta) {
+
+        Iterator<DynamicObject> iterator = projectiles.iterator();
+        while (iterator.hasNext()) {
+            ProjectileContext p = (ProjectileContext) iterator.next();
+            p.update(delta);
+
+            if (p.isOffScreen()) {
+                iterator.remove();
+                bulletPool.free(p);
+                continue;
+            }
+
+            Circle hitbox = p.getPosition();
+
+            if (p.getOwner() != player && Intersector.overlaps(hitbox, player.getPosition())) {
+                player.state.updateHp(-p.getPower());
+                iterator.remove();
+                bulletPool.free(p);
+                continue;
+            }
+
+            if (p.getOwner() != boss && Intersector.overlaps(hitbox, boss.getPosition())) {
+                boss.state.updateHp(-p.getPower());
+                iterator.remove();
+                bulletPool.free(p);
+            }
+        }
+    }
 
     public void dispose() {
         player.dispose();

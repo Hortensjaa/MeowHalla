@@ -2,6 +2,7 @@ package io.github.meowhalla.classes.weapons;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
+import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.classes.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Direction;
 
@@ -16,7 +17,13 @@ public class MultipleShotBehavior implements WeaponBehavior {
     }
 
     @Override
-    public List<ProjectileContext> shoot (Vector2 origin, Direction direction, WeaponContext data, Pool<ProjectileContext> pool) {
+    public List<ProjectileContext> shoot (
+        Vector2 origin,
+        Direction direction,
+        WeaponContext data,
+        CharacterContext ctx,
+        Pool<ProjectileContext> pool
+    ) {
         float speed = data.velocity().len(); // base speed
 
         List<ProjectileContext> shots = new ArrayList<>();
@@ -27,7 +34,7 @@ public class MultipleShotBehavior implements WeaponBehavior {
             Vector2 velocity = new Vector2(speed, 0).setAngleDeg(angle);
 
             ProjectileContext bullet = pool.obtain();
-            bullet.reset(new Vector2(origin), velocity, data.fileName(), data.power(), data.radius());
+            bullet.reset(new Vector2(origin), velocity, data.fileName(), data.power(), data.radius(), ctx);
             shots.add(bullet);
         }
 
