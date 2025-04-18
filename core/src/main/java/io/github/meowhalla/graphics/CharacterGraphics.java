@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.states.Direction;
 
-public abstract class CharacterGraphics {
+public abstract class CharacterGraphics implements Graphics {
     protected final CharacterContext ctx;
     protected Texture sheet;
     protected AnimationSet animationSet;

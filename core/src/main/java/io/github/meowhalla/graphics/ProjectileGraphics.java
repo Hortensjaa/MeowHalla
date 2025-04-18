@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import io.github.meowhalla.classes.projectiles.ProjectileContext;
 
-public class ProjectileGraphics {
+public class ProjectileGraphics implements Graphics {
     private final ProjectileContext ctx;
     private final Texture sheet;
     private final Animation<TextureRegion> animation;

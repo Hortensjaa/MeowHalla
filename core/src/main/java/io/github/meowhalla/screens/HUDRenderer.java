@@ -32,8 +32,10 @@ public class HUDRenderer {
         float percent = (float) ctx.getPlayer().state.getHp() / ctx.getPlayer().state.getMax_hp();
         shapeRenderer.setColor(Color.DARK_GRAY);
         shapeRenderer.rect(x, y, maxWidth, barHeight);
-        shapeRenderer.setColor(Color.LIME);
-        shapeRenderer.rect(x, y, maxWidth * percent, barHeight);
+        if (ctx.getPlayer().state.getHp() >= 0) {
+            shapeRenderer.setColor(Color.LIME);
+            shapeRenderer.rect(x, y, maxWidth * percent, barHeight);
+        }
 
         shapeRenderer.end();
     }
@@ -50,8 +52,10 @@ public class HUDRenderer {
         shapeRenderer.setColor(Color.DARK_GRAY);
         shapeRenderer.rect(x, y, maxWidth, barHeight);
 
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(x, y, maxWidth * percent, barHeight);
+        if (ctx.getBoss().state.getHp() >= 0) {
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(x, y, maxWidth * percent, barHeight);
+        }
 
         shapeRenderer.end();
 

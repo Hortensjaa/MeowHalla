@@ -24,6 +24,7 @@ public class GameContext {
     private final PlayerContext player;
     private final CharacterContext boss;
     private final List<DynamicObject> projectiles = new ArrayList<>();
+    private final List<PlatformContext> platforms = new ArrayList<>();
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
@@ -44,6 +45,12 @@ public class GameContext {
         camera.update();
         player = new PlayerContext(this);
         boss = new WolfBossContext(this);
+
+        platforms.add(new PlatformContext(200, 150, 300, 20));
+        platforms.add(new PlatformContext(600, 300, 200, 20));
+        platforms.add(new PlatformContext(400, 490, 250, 20));
+
+
     }
 
     public void update(float delta) {
@@ -69,6 +76,7 @@ public class GameContext {
         player.render(batch);
         boss.render(batch);
         for (DynamicObject p : projectiles) p.render(batch);
+        for (PlatformContext p : platforms) p.render(batch);
     }
 
     public void resize(int width, int height) {
@@ -110,6 +118,7 @@ public class GameContext {
         player.dispose();
         boss.dispose();
         for (DynamicObject p : projectiles) p.dispose();
+        for (PlatformContext p : platforms) p.dispose();
     }
 }
 
