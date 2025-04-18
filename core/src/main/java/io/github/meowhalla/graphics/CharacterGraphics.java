@@ -9,7 +9,7 @@ import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.states.Direction;
 
 public abstract class CharacterGraphics implements Graphics {
-    protected final CharacterContext ctx;
+    protected CharacterContext ctx;
     protected Texture sheet;
     protected AnimationSet animationSet;
     protected float stateTime;

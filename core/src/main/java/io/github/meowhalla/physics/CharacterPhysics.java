@@ -18,12 +18,12 @@ public abstract class CharacterPhysics {
 
     public void moveLeft() {
         velocity.x = -maxSpeed;
-        ctx.state.getActionState().setDirection(Direction.LEFT);
+        ctx.state.setDirection(Direction.LEFT);
     }
 
     public void moveRight() {
         velocity.x = maxSpeed;
-        ctx.state.getActionState().setDirection(Direction.RIGHT);
+        ctx.state.setDirection(Direction.RIGHT);
     }
 
     public void jump() {

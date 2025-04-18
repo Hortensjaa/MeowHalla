@@ -24,7 +24,6 @@ public abstract class CharacterContext implements DynamicObject {
     public CharacterPhysics physics;
     public CharacterGraphics graphics;
     public WeaponContext weapon;
-    public float timeSinceLastShot = 0f;
     @Getter protected String name;
     @Getter private final GameContext gameContext;
 
@@ -35,7 +34,6 @@ public abstract class CharacterContext implements DynamicObject {
     public void update(float delta) {
         logic.update(delta);
         physics.update(delta);
-        timeSinceLastShot += delta;
     }
 
     public void render(SpriteBatch batch) {
@@ -69,6 +67,18 @@ public abstract class CharacterContext implements DynamicObject {
 
     public List<ProjectileContext> shoot(Pool<ProjectileContext> bulletPool) {
         return logic.shoot(bulletPool);
+    }
+
+    public void updateHp(int val) {
+        logic.setHp(logic.getHp() + val);
+    }
+
+    public int getHp() {
+        return logic.getHp();
+    }
+
+    public int getMax_hp() {
+        return logic.getMax_hp();
     }
 }
 

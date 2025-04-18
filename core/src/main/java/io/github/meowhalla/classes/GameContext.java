@@ -13,6 +13,7 @@ import io.github.meowhalla.classes.characters.PlayerContext;
 import io.github.meowhalla.classes.characters.WolfBossContext;
 import io.github.meowhalla.classes.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
+import io.github.meowhalla.states.PlayerState;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -99,15 +100,19 @@ public class GameContext {
 
             Circle hitbox = p.getPosition();
 
-            if (p.getOwner() != player && Intersector.overlaps(hitbox, player.getPosition())) {
-                player.state.updateHp(-p.getPower());
+            if (p.getOwner() != player
+                && Intersector.overlaps(hitbox, player.getPosition())
+                && !player.state.isInvincible()
+            ) {
+                player.updateHp(-p.getPower());
                 iterator.remove();
                 bulletPool.free(p);
+                ((PlayerState) player.state).resetNoHitTime();
                 continue;
             }
 
             if (p.getOwner() != boss && Intersector.overlaps(hitbox, boss.getPosition())) {
-                boss.state.updateHp(-p.getPower());
+                boss.updateHp(-p.getPower());
                 iterator.remove();
                 bulletPool.free(p);
             }

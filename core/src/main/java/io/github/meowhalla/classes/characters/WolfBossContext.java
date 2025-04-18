@@ -13,8 +13,8 @@ public class WolfBossContext extends CharacterContext {
         super(gameContext);
         float w = getGameContext().getViewport().getWorldWidth();
         name = "Wolf of Death";
-        state = new CharacterState((int) (w - 380), 0, 0, 0, 1000);
-        logic = new WolfBossLogic(this);
+        state = new CharacterState((int) (w - 380), 0, 0, 0);
+        logic = new WolfBossLogic(this, 1000);
         physics = new BossPhysics(this);
         graphics = new WolfBossGraphics(this, "bosses/wolf_of_death.png", 6f);
         weapon = WeaponType.MAGIC_CRUSHER.data;

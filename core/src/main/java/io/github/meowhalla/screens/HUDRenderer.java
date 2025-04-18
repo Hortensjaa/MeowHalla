@@ -29,10 +29,10 @@ public class HUDRenderer {
         float x = 20;
         float y = Gdx.graphics.getHeight() - 40;
 
-        float percent = (float) ctx.getPlayer().state.getHp() / ctx.getPlayer().state.getMax_hp();
+        float percent = (float) ctx.getPlayer().getHp() / ctx.getPlayer().getMax_hp();
         shapeRenderer.setColor(Color.DARK_GRAY);
         shapeRenderer.rect(x, y, maxWidth, barHeight);
-        if (ctx.getPlayer().state.getHp() >= 0) {
+        if (ctx.getPlayer().getHp() >= 0) {
             shapeRenderer.setColor(Color.LIME);
             shapeRenderer.rect(x, y, maxWidth * percent, barHeight);
         }
@@ -47,12 +47,12 @@ public class HUDRenderer {
         float x = (Gdx.graphics.getWidth() - maxWidth) / 2f;
         float y = Gdx.graphics.getHeight() - 70;
 
-        float percent = (float) ctx.getBoss().state.getHp() / ctx.getBoss().state.getMax_hp();
+        float percent = (float) ctx.getBoss().getHp() / ctx.getBoss().getMax_hp();
 
         shapeRenderer.setColor(Color.DARK_GRAY);
         shapeRenderer.rect(x, y, maxWidth, barHeight);
 
-        if (ctx.getBoss().state.getHp() >= 0) {
+        if (ctx.getBoss().getHp() >= 0) {
             shapeRenderer.setColor(Color.RED);
             shapeRenderer.rect(x, y, maxWidth * percent, barHeight);
         }
@@ -70,8 +70,6 @@ public class HUDRenderer {
         font.draw(fontBatch, bossName, x, textY);
         fontBatch.end();
     }
-
-
 
     public void dispose() {
         shapeRenderer.dispose();

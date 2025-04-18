@@ -6,22 +6,21 @@ import io.github.meowhalla.classes.characters.PlayerContext;
 import io.github.meowhalla.data.KeyBindings;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
+import io.github.meowhalla.states.PlayerState;
 
 public class PlayerLogic extends CharacterLogic {
 
-    public PlayerLogic(PlayerContext ctx) {
-        super(ctx);
-
+    public PlayerLogic(PlayerContext ctx, int max_hp) {
+        super(ctx, max_hp);
     }
 
     public void update(float delta) {
         boolean left = Gdx.input.isKeyPressed(KeyBindings.LEFT.getKeyCode());
         boolean right = Gdx.input.isKeyPressed(KeyBindings.RIGHT.getKeyCode());
 
-        if (ctx.state.getHp() <= 0) {
+        if (hp <= 0) {
             ctx.state.setAction(Action.DEAD);
-        }
-        else if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
+        } else if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
             ctx.state.setAction(Action.ATTACK);
         } else if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
             ctx.state.setAction(Action.JUMP);
@@ -41,8 +40,11 @@ public class PlayerLogic extends CharacterLogic {
         } else if (ctx.physics.isGrounded()) {
             ctx.state.setAction(Action.IDLE);
         } else {
-            ctx.state.getActionState().setAction(Action.FALL);
+            ctx.state.setAction(Action.FALL);
         }
+        timeSinceLastShot += delta;
+        ((PlayerState) ctx.state).increaseTime(delta);
     }
+
 }
 
