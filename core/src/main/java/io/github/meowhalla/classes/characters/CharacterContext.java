@@ -3,8 +3,10 @@ package io.github.meowhalla.classes.characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Pool;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.GameContext;
+import io.github.meowhalla.classes.projectiles.ProjectileContext;
 import io.github.meowhalla.classes.weapons.WeaponContext;
 import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.logic.CharacterLogic;
@@ -14,14 +16,17 @@ import io.github.meowhalla.states.CharacterState;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 
+import java.util.List;
+
 public abstract class CharacterContext implements DynamicObject {
     public CharacterState state;
     public CharacterLogic logic;
     public CharacterPhysics physics;
     public CharacterGraphics graphics;
-    @Getter private final GameContext gameContext;
     public WeaponContext weapon;
     public float timeSinceLastShot = 0f;
+    @Getter protected String name;
+    @Getter private final GameContext gameContext;
 
     public CharacterContext(GameContext gameContext) {
         this.gameContext = gameContext;
@@ -60,6 +65,10 @@ public abstract class CharacterContext implements DynamicObject {
     public Vector2 rightBorder() {
         return new Vector2(state.getPosition().x + state.getPosition().width,
             state.getPosition().y + state.getPosition().height / 2);
+    }
+
+    public List<ProjectileContext> shoot(Pool<ProjectileContext> bulletPool) {
+        return logic.shoot(bulletPool);
     }
 }
 

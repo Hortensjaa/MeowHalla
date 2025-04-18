@@ -7,7 +7,12 @@ import io.github.meowhalla.data.KeyBindings;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
 
-public record PlayerLogic(PlayerContext ctx) implements CharacterLogic {
+public class PlayerLogic extends CharacterLogic {
+
+    public PlayerLogic(PlayerContext ctx) {
+        super(ctx);
+
+    }
 
     public void update(float delta) {
         boolean left = Gdx.input.isKeyPressed(KeyBindings.LEFT.getKeyCode());

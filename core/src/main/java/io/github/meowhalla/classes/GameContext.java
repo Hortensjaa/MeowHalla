@@ -11,7 +11,6 @@ import io.github.meowhalla.classes.characters.PlayerContext;
 import io.github.meowhalla.classes.characters.WolfBossContext;
 import io.github.meowhalla.classes.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
-import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -65,15 +64,11 @@ public class GameContext {
     }
 
     private void shoot(CharacterContext character) {
-        if (character.getAction() == Action.ATTACK && character.timeSinceLastShot >= character.weapon.cooldown()) {
-            Vector2 origin = character.state.getDirection() == Direction.RIGHT
-                ? character.rightBorder()
-                : character.leftBorder();
-
-            List<ProjectileContext> fired = character.weapon.behavior()
-                .shoot(origin, character.state.getDirection(), character.weapon, bulletPool);
-            projectiles.addAll(fired);
-            character.timeSinceLastShot = 0f;
+        if (character.getAction() == Action.ATTACK) {
+            List<ProjectileContext> fired = character.shoot(bulletPool);
+            if (fired != null) {
+                projectiles.addAll(fired);
+            }
         }
     }
 
