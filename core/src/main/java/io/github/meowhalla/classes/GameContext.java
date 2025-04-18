@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.classes.characters.PlayerContext;
+import io.github.meowhalla.classes.characters.WolfBossContext;
 import io.github.meowhalla.classes.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
@@ -19,8 +21,8 @@ import java.util.List;
 @Getter
 public class GameContext {
     private final PlayerContext player;
+    private final CharacterContext boss;
     private final List<DynamicObject> projectiles = new ArrayList<>();
-    private float timeSinceLastShot;
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
@@ -28,7 +30,7 @@ public class GameContext {
     private final Pool<ProjectileContext> bulletPool = new Pool<>() {
         @Override
         protected ProjectileContext newObject() {
-            return player.weapon.createProjectile();
+            return new ProjectileContext(new Vector2(), new Vector2(), "weapons/Arcane Bolt.png", 1f, 10f);
         }
     };
 
@@ -39,24 +41,16 @@ public class GameContext {
         viewport.apply();
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
-        timeSinceLastShot = 0;
         player = new PlayerContext(this);
+        boss = new WolfBossContext(this);
     }
 
     public void update(float delta) {
-        timeSinceLastShot += delta;
         player.update(delta);
+        boss.update(delta);
 
-        if (player.getAction() == Action.ATTACK && timeSinceLastShot >= player.weapon.cooldown()) {
-            Vector2 origin = player.state.getDirection() == Direction.RIGHT
-                ? player.rightBorder()
-                : player.leftBorder();
-
-            List<ProjectileContext> fired = player.weapon.behavior()
-                .shoot(origin, player.state.getDirection(), player.weapon, bulletPool);
-            projectiles.addAll(fired);
-            timeSinceLastShot = 0f;
-        }
+        shoot(player);
+        shoot(boss);
 
         Iterator<DynamicObject> iterator = projectiles.iterator();
         while (iterator.hasNext()) {
@@ -70,8 +64,23 @@ public class GameContext {
         }
     }
 
+    private void shoot(CharacterContext character) {
+        if (character.getAction() == Action.ATTACK && character.timeSinceLastShot >= character.weapon.cooldown()) {
+            Vector2 origin = character.state.getDirection() == Direction.RIGHT
+                ? character.rightBorder()
+                : character.leftBorder();
+
+            List<ProjectileContext> fired = character.weapon.behavior()
+                .shoot(origin, character.state.getDirection(), character.weapon, bulletPool);
+            projectiles.addAll(fired);
+            character.timeSinceLastShot = 0f;
+        }
+    }
+
+
     public void render(SpriteBatch batch) {
         player.render(batch);
+        boss.render(batch);
         for (DynamicObject p : projectiles) p.render(batch);
     }
 
@@ -83,6 +92,7 @@ public class GameContext {
 
     public void dispose() {
         player.dispose();
+        boss.dispose();
         for (DynamicObject p : projectiles) p.dispose();
     }
 }

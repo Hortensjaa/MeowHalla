@@ -2,41 +2,14 @@ package io.github.meowhalla.physics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.data.KeyBindings;
-import io.github.meowhalla.states.Direction;
-import lombok.Getter;
 
 
-public class PlayerPhysics implements CharacterPhysics {
-    private final CharacterContext ctx;
-    @Getter private final Vector2 velocity = new Vector2();
-    private final float maxSpeed = 500f;
-    private final float jumpStrength = 900f;
-    private final float gravity = 2000f;
-    @Getter private boolean isGrounded = true;
+public class PlayerPhysics extends CharacterPhysics {
 
     public PlayerPhysics(CharacterContext ctx) {
         this.ctx = ctx;
-    }
-
-    public void moveLeft() {
-        velocity.x = -maxSpeed;
-        ctx.state.getActionState().setDirection(Direction.LEFT);
-    }
-
-    public void moveRight() {
-        velocity.x = maxSpeed;
-        ctx.state.getActionState().setDirection(Direction.RIGHT);
-    }
-
-
-    public void jump() {
-        if (isGrounded) {
-            velocity.y = jumpStrength;
-            isGrounded = false;
-        }
     }
 
     public void update(float delta) {

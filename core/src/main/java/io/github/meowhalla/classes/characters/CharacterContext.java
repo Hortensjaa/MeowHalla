@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.GameContext;
+import io.github.meowhalla.classes.weapons.WeaponContext;
 import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.logic.CharacterLogic;
 import io.github.meowhalla.physics.CharacterPhysics;
@@ -14,11 +15,13 @@ import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 
 public abstract class CharacterContext implements DynamicObject {
-    public CharacterState state = new CharacterState(0, 0, 0, 0, 100);
+    public CharacterState state;
     public CharacterLogic logic;
     public CharacterPhysics physics;
     public CharacterGraphics graphics;
     @Getter private final GameContext gameContext;
+    public WeaponContext weapon;
+    public float timeSinceLastShot = 0f;
 
     public CharacterContext(GameContext gameContext) {
         this.gameContext = gameContext;
@@ -27,6 +30,7 @@ public abstract class CharacterContext implements DynamicObject {
     public void update(float delta) {
         logic.update(delta);
         physics.update(delta);
+        timeSinceLastShot += delta;
     }
 
     public void render(SpriteBatch batch) {
