@@ -13,6 +13,7 @@ import io.github.meowhalla.classes.GameContext;
 public class FirstScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
+    private HUDRenderer hudRenderer;
 
     private GameContext ctx;
     private SpriteBatch batch;
@@ -28,6 +29,7 @@ public class FirstScreen implements Screen {
         camera.update();
 
         ctx = new GameContext();
+        hudRenderer = new HUDRenderer(ctx);
     }
 
 
@@ -41,6 +43,10 @@ public class FirstScreen implements Screen {
         ctx.update(delta);
         ctx.render(batch);
         batch.end();
+
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        hudRenderer.renderPlayer();
+        hudRenderer.renderBoss();
     }
 
     @Override
