@@ -16,7 +16,7 @@ public class PlayerContext extends CharacterContext {
         state.setDirection(Direction.RIGHT);
         logic = new PlayerLogic(this, 100);
         physics = new PlayerPhysics(this);
-        graphics = new PlayerGraphics(this, "player/player.png", 0.25f);
+        graphics = new PlayerGraphics(this, "player/player.png", 0.25f, 1, 2);
         weapon = WeaponType.SHURIKENS_OF_LIGHT.data;
     }
 

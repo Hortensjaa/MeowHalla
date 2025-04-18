@@ -13,10 +13,16 @@ public abstract class CharacterGraphics implements Graphics {
     protected Texture sheet;
     protected AnimationSet animationSet;
     protected float stateTime;
+    protected TextureRegion[][] frames;
 
-    public CharacterGraphics(CharacterContext ctx, String fileName) {
+    public CharacterGraphics(CharacterContext ctx, String fileName, float scaling, int rowsNum, int colsNum) {
         this.ctx = ctx;
         sheet = new Texture(Gdx.files.internal(fileName));
+        int tileWidth = sheet.getWidth()/colsNum;
+        int tileHeight = sheet.getHeight()/rowsNum;
+        frames = TextureRegion.split(sheet, tileWidth, tileHeight);
+        ctx.getPosition().setWidth(tileWidth * scaling);
+        ctx.getPosition().setHeight(tileHeight * scaling);
     }
 
     public void render(SpriteBatch batch) {

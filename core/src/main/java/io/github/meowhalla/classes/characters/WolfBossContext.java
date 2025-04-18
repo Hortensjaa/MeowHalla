@@ -16,7 +16,7 @@ public class WolfBossContext extends CharacterContext {
         state = new CharacterState((int) (w - 380), 0, 0, 0);
         logic = new WolfBossLogic(this, 1000);
         physics = new BossPhysics(this);
-        graphics = new WolfBossGraphics(this, "bosses/wolf_of_death.png", 6f);
+        graphics = new WolfBossGraphics(this, "bosses/wolf_of_death.png", 6f, 4, 7);
         weapon = WeaponType.MAGIC_CRUSHER.data;
     }
 }
