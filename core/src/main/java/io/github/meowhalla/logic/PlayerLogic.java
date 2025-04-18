@@ -2,20 +2,23 @@ package io.github.meowhalla.logic;
 
 
 import com.badlogic.gdx.Gdx;
-import io.github.meowhalla.classes.PlayerContext;
+import io.github.meowhalla.classes.characters.PlayerContext;
 import io.github.meowhalla.data.KeyBindings;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
 
-public record PlayerLogic(PlayerContext ctx) {
+public record PlayerLogic(PlayerContext ctx) implements CharacterLogic {
 
     public void update(float delta) {
         boolean left = Gdx.input.isKeyPressed(KeyBindings.LEFT.getKeyCode());
         boolean right = Gdx.input.isKeyPressed(KeyBindings.RIGHT.getKeyCode());
 
-        if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
+        if (ctx.state.getHp() <= 0) {
+            ctx.state.setAction(Action.DEAD);
+        }
+        else if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
             ctx.state.setAction(Action.ATTACK);
-        } if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
+        } else if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
             ctx.state.setAction(Action.JUMP);
             ctx.physics.jump();
         } else if (left && !right) {
@@ -31,9 +34,10 @@ public record PlayerLogic(PlayerContext ctx) {
             ctx.state.setDirection(Direction.RIGHT);
             ctx.physics.moveRight();
         } else if (ctx.physics.isGrounded()) {
-            ctx.state.setAction(Action.WAIT);
+            ctx.state.setAction(Action.IDLE);
+        } else {
+            ctx.state.getActionState().setAction(Action.FALL);
         }
     }
-
 }
 

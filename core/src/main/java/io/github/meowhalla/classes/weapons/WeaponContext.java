@@ -1,7 +1,7 @@
-package io.github.meowhalla.classes;
+package io.github.meowhalla.classes.weapons;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.classes.behaviors.WeaponBehavior;
+import io.github.meowhalla.classes.projectiles.ProjectileContext;
 
 
 public record WeaponContext(
@@ -13,7 +13,7 @@ public record WeaponContext(
     float radius,
     WeaponBehavior behavior
 ) {
-    ProjectileContext createProjectile() {
+    public ProjectileContext createProjectile() {
         return new ProjectileContext(new Vector2(0, 0), velocity, fileName, power, radius);
     }
 }

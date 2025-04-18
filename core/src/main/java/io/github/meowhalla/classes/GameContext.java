@@ -1,14 +1,14 @@
 package io.github.meowhalla.classes;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import io.github.meowhalla.data.WeaponType;
+import io.github.meowhalla.classes.characters.PlayerContext;
+import io.github.meowhalla.classes.projectiles.ProjectileContext;
+import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 
@@ -20,7 +20,6 @@ import java.util.List;
 public class GameContext {
     private final PlayerContext player;
     private final List<DynamicObject> projectiles = new ArrayList<>();
-    private final WeaponContext weapon;
     private float timeSinceLastShot;
     private final OrthographicCamera camera;
     private final Viewport viewport;
@@ -29,7 +28,7 @@ public class GameContext {
     private final Pool<ProjectileContext> bulletPool = new Pool<>() {
         @Override
         protected ProjectileContext newObject() {
-            return weapon.createProjectile();
+            return player.weapon.createProjectile();
         }
     };
 
@@ -42,25 +41,22 @@ public class GameContext {
         camera.update();
         timeSinceLastShot = 0;
         player = new PlayerContext(this);
-        weapon = WeaponType.SHURIKENS_OF_LIGHT.data;
     }
 
     public void update(float delta) {
         timeSinceLastShot += delta;
+        player.update(delta);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.X) && timeSinceLastShot >= weapon.cooldown()) {
+        if (player.getAction() == Action.ATTACK && timeSinceLastShot >= player.weapon.cooldown()) {
             Vector2 origin = player.state.getDirection() == Direction.RIGHT
                 ? player.rightBorder()
                 : player.leftBorder();
 
-            List<ProjectileContext> fired = weapon.behavior()
-                .shoot(origin, player.state.getDirection(), weapon, bulletPool);
+            List<ProjectileContext> fired = player.weapon.behavior()
+                .shoot(origin, player.state.getDirection(), player.weapon, bulletPool);
             projectiles.addAll(fired);
             timeSinceLastShot = 0f;
         }
-
-
-        player.update(delta);
 
         Iterator<DynamicObject> iterator = projectiles.iterator();
         while (iterator.hasNext()) {

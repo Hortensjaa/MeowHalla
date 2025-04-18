@@ -1,10 +1,11 @@
-package io.github.meowhalla.classes;
+package io.github.meowhalla.classes.projectiles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.graphics.ProjectileGraphics;
 import lombok.Getter;
 import lombok.Setter;

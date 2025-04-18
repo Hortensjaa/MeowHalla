@@ -1,11 +1,10 @@
 package io.github.meowhalla.physics;
 
-import io.github.meowhalla.classes.BossContext;
-import io.github.meowhalla.classes.PlayerContext;
+import io.github.meowhalla.classes.characters.CharacterContext;
 
 public class Collisions {
 
-    public void checkPlayerBoss(PlayerContext player, BossContext boss) {
+    public void checkPlayerBoss(CharacterContext player, CharacterContext boss) {
         if (player.state.getPosition().overlaps(boss.state.getPosition())) {
             player.state.updateHp(-10);
         }

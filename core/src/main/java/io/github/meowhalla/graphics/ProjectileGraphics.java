@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
-import io.github.meowhalla.classes.ProjectileContext;
+import io.github.meowhalla.classes.projectiles.ProjectileContext;
 
 public class ProjectileGraphics {
     private final ProjectileContext ctx;

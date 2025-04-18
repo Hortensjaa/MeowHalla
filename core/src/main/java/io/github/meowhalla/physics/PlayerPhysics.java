@@ -3,22 +3,21 @@ package io.github.meowhalla.physics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.classes.PlayerContext;
+import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.data.KeyBindings;
-import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 
 
-public class PlayerPhysics {
-    private final PlayerContext ctx;
+public class PlayerPhysics implements CharacterPhysics {
+    private final CharacterContext ctx;
     @Getter private final Vector2 velocity = new Vector2();
     private final float maxSpeed = 500f;
     private final float jumpStrength = 900f;
     private final float gravity = 2000f;
     @Getter private boolean isGrounded = true;
 
-    public PlayerPhysics(PlayerContext ctx) {
+    public PlayerPhysics(CharacterContext ctx) {
         this.ctx = ctx;
     }
 
@@ -60,10 +59,6 @@ public class PlayerPhysics {
             isGrounded = true;
         } else {
             isGrounded = false;
-        }
-
-        if (velocity.y < 0) {
-            ctx.state.getActionState().setAction(Action.FALL);
         }
 
         if (rect.x < 0) rect.x = 0;

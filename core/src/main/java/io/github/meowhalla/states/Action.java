@@ -1,10 +1,12 @@
 package io.github.meowhalla.states;
 
 public enum Action {
-    WAIT,
+    IDLE,
     RUN,
     JUMP,
     FALL,
     ATTACK,
-    GUARD
+    GUARD,
+    HIT,
+    DEAD
 }
