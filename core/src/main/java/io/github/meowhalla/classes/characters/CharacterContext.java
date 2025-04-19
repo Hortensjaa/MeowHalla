@@ -3,11 +3,10 @@ package io.github.meowhalla.classes.characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.GameContext;
 import io.github.meowhalla.classes.projectiles.ProjectileContext;
-import io.github.meowhalla.classes.weapons.WeaponContext;
+import io.github.meowhalla.classes.weapons.Weapon;
 import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.logic.CharacterLogic;
 import io.github.meowhalla.physics.CharacterPhysics;
@@ -23,7 +22,7 @@ public abstract class CharacterContext implements DynamicObject {
     public CharacterLogic logic;
     public CharacterPhysics physics;
     public CharacterGraphics graphics;
-    public WeaponContext weapon;
+    public Weapon activeWeapon;
     @Getter protected String name;
     @Getter private final GameContext gameContext;
 
@@ -65,8 +64,8 @@ public abstract class CharacterContext implements DynamicObject {
             state.getPosition().y + state.getPosition().height / 2);
     }
 
-    public List<ProjectileContext> shoot(Pool<ProjectileContext> bulletPool) {
-        return logic.shoot(bulletPool);
+    public List<ProjectileContext> shoot() {
+        return logic.shoot();
     }
 
     public void updateHp(int val) {

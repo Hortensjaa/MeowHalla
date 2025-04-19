@@ -9,6 +9,7 @@ import io.github.meowhalla.states.CharacterState;
 
 
 public class WolfBossContext extends CharacterContext {
+
     public WolfBossContext(GameContext gameContext) {
         super(gameContext);
         float w = getGameContext().getViewport().getWorldWidth();
@@ -17,6 +18,7 @@ public class WolfBossContext extends CharacterContext {
         logic = new WolfBossLogic(this, 1000);
         physics = new BossPhysics(this);
         graphics = new WolfBossGraphics(this, "bosses/wolf_of_death.png", 6f, 4, 7);
-        weapon = WeaponType.MAGIC_CRUSHER.data;
+        activeWeapon = WeaponType.ECLIPSE.data;
     }
+
 }

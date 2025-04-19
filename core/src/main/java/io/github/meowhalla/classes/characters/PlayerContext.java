@@ -1,6 +1,7 @@
 package io.github.meowhalla.classes.characters;
 
 import io.github.meowhalla.classes.GameContext;
+import io.github.meowhalla.classes.weapons.Weapon;
 import io.github.meowhalla.data.WeaponType;
 import io.github.meowhalla.graphics.PlayerGraphics;
 import io.github.meowhalla.logic.PlayerLogic;
@@ -8,7 +9,10 @@ import io.github.meowhalla.physics.PlayerPhysics;
 import io.github.meowhalla.states.Direction;
 import io.github.meowhalla.states.PlayerState;
 
+import java.util.List;
+
 public class PlayerContext extends CharacterContext {
+    public List<Weapon> weapons;
 
     public PlayerContext(GameContext gameContext) {
         super(gameContext);
@@ -17,7 +21,8 @@ public class PlayerContext extends CharacterContext {
         logic = new PlayerLogic(this, 100);
         physics = new PlayerPhysics(this);
         graphics = new PlayerGraphics(this, "player/player.png", 0.25f, 1, 2);
-        weapon = WeaponType.SHURIKENS_OF_LIGHT.data;
+        activeWeapon = WeaponType.SHURIKENS_OF_LIGHT.data;
+        weapons = List.of(WeaponType.SHURIKENS_OF_LIGHT.data);
     }
 
 }

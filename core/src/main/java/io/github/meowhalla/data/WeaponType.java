@@ -1,52 +1,65 @@
 package io.github.meowhalla.data;
 
 import com.badlogic.gdx.math.Vector2;
+import io.github.meowhalla.classes.projectiles.MultipleBasicProjectileFactory;
+import io.github.meowhalla.classes.weapons.Weapon;
 import io.github.meowhalla.classes.weapons.WeaponContext;
-import io.github.meowhalla.classes.weapons.DirectSingleShotBehavior;
-import io.github.meowhalla.classes.weapons.MultipleShotBehavior;
 
 import java.util.List;
 
+
 public enum WeaponType {
-    MAGIC_CRUSHER(
-        new WeaponContext(
-        "Magic Crusher",
-            20,
-            "weapons/Magic Orb.png",
-            1.5f,
-            new Vector2(350, 0),
-            20,
-            0.5f,
-            new DirectSingleShotBehavior()
-        )),
+    MAGIC_ORB_VOLLEY(
+        new Weapon(
+            new WeaponContext("Magic Orb Volley", 0.5f, 0.7f),
+            new MultipleBasicProjectileFactory(
+                20,
+                "weapons/Magic Orb.png",
+                25,
+                new Vector2(700, 0),
+                0f,
+                List.of(0f)
+            ))),
+
+    FAN_OF_ORBS(
+        new Weapon(
+            new WeaponContext("Fan of Orbs", 1f, 0.7f),
+            new MultipleBasicProjectileFactory(
+                20,
+                "weapons/Magic Orb.png",
+                30,
+                new Vector2(600, 0),
+                0f,
+                List.of(0f, 30f, 60f)
+            ))),
+
+    ECLIPSE(
+        new Weapon(
+            new WeaponContext("Eclipse", 2f, 2f),
+            new MultipleBasicProjectileFactory(
+                20,
+                "weapons/Magic Orb.png",
+                50,
+                new Vector2(400, 0),
+                -5f,
+                List.of(0f)
+            ))),
 
     SHURIKENS_OF_LIGHT(
-        new WeaponContext(
-            "Shurikens of light",
-            13,
-            "weapons/Pure Bolt 2.png",
-            0.7f,
-            new Vector2(700, 0),
-            8,
-            0.2f,
-            new MultipleShotBehavior(List.of(0f, 30f, -30f))
-        )),
-
-    ASHES_OF_BLESSING(
-        new WeaponContext(
-            "Ashes of blessing",
-            5,
-            "weapons/Black And White Sparks.png",
-            0.7f,
-            new Vector2(700, 0),
+        new Weapon(
+        new WeaponContext("Shurikens of Light", 0.5f, 0.7f),
+        new MultipleBasicProjectileFactory(
             20,
-            0.5f,
-            new MultipleShotBehavior(List.of(0f, 30f, -30f, -15f, 15f, 45f, 60f))
-        ));
+            "weapons/Pure Bolt 2.png",
+            8,
+            new Vector2(700, 0),
+            0f,
+            List.of(0f, 30f, -30f)
+    )));
 
-    public final WeaponContext data;
+    public final Weapon data;
 
-    WeaponType(WeaponContext data) {
+    WeaponType(Weapon data) {
         this.data = data;
     }
 }

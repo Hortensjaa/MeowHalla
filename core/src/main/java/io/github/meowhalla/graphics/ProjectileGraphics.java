@@ -25,7 +25,7 @@ public class ProjectileGraphics implements Graphics {
     }
 
     public void render(SpriteBatch batch) {
-        Circle r = ctx.getPosition();
+        Circle r = ctx.getHitbox();
         stateTime += Gdx.graphics.getDeltaTime();
         TextureRegion currentFrame = animation.getKeyFrame(stateTime);
 
