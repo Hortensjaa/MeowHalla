@@ -38,8 +38,7 @@ public class GameContext {
         boss = new WolfBossContext(this);
 
         platforms.add(new PlatformContext(200, 150, 300, 20));
-        platforms.add(new PlatformContext(600, 300, 200, 20));
-        platforms.add(new PlatformContext(400, 490, 250, 20));
+        platforms.add(new PlatformContext(600, 250, 200, 20));
     }
 
     public void update(float delta) {

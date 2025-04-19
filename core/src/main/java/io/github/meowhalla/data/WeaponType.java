@@ -15,7 +15,7 @@ public enum WeaponType {
         new Weapon(
             new WeaponContext("Magic Orb Volley", 0.5f, 3f),
             new MultipleBasicProjectileFactory(
-                20,
+                30,
                 "weapons/Magic Orb.png",
                 25,
                 new Vector2(700, 0),
@@ -37,7 +37,7 @@ public enum WeaponType {
         new Weapon(
             new WeaponContext("Eclipse", 2f, 2f),
             new MultipleBasicProjectileFactory(
-                20,
+                50,
                 "weapons/Magic Orb.png",
                 50,
                 new Vector2(400, 0),
@@ -49,7 +49,7 @@ public enum WeaponType {
         new Weapon(
             new WeaponContext("Zigzag", 0.7f, 2f),
             new WindingProjectileFactory(
-                5,
+                15,
                 "weapons/Magic Orb.png",
                 15,
                 List.of(new Vector3(-200, 400, 1f), new Vector3(-200, -400, 1f))
@@ -59,7 +59,7 @@ public enum WeaponType {
         new Weapon(
         new WeaponContext("Shurikens of Light", 0.5f, 0.7f),
         new MultipleBasicProjectileFactory(
-            20,
+            10,
             "weapons/Pure Bolt 2.png",
             8,
             new Vector2(700, 0),

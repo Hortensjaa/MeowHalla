@@ -31,11 +31,9 @@ public class MultipleBasicProjectileFactory extends ProjectileFactory {
     }
 
     @Override
-    public List<ProjectileContext> createProjectiles(CharacterContext owner) {
+    public List<ProjectileContext> createProjectiles(CharacterContext owner, Vector2 origin) {
         float speed = velocity.len();
         List<ProjectileContext> shots = new ArrayList<>();
-        Vector2 width = new Vector2(radius, 0);
-        Vector2 origin = owner.getDirection() == Direction.RIGHT ? owner.rightBorder() : owner.leftBorder().cpy().sub(width);
         for (float angleOffset : angles) {
             float angle = owner.getDirection() == Direction.RIGHT ? angleOffset : 180 - angleOffset;
             Vector2 v = new Vector2(speed, 0).setAngleDeg(angle);

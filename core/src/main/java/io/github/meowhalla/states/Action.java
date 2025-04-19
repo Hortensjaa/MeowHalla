@@ -9,5 +9,5 @@ public enum Action {
     GUARD,
     HIT,
     DEAD,
-    CHARGING
+    CASTING
 }

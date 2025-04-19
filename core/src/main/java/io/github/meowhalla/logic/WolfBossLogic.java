@@ -43,15 +43,14 @@ public class WolfBossLogic extends CharacterLogic {
     }
 
     public void update(float delta) {
-        System.out.println(currentComboId);
 
         // change combo
-        if ((currentComboTime == 0 && ctx.state.getAction() != Action.CHARGING)
+        if ((currentComboTime == 0 && ctx.state.getAction() != Action.CASTING)
             || currentComboTime >= comboTimes[currentComboId]) {
             currentComboId++;
             currentComboId %= comboSuppliers.size();
             currentComboTime = 0f;
-            ctx.state.setAction(Action.CHARGING);
+            ctx.state.setAction(Action.CASTING);
             ctx.activeWeapon = comboWeapons[currentComboId];
         }
 

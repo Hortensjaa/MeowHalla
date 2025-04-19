@@ -15,7 +15,7 @@ public class WolfBossContext extends CharacterContext {
         float w = getGameContext().getViewport().getWorldWidth();
         name = "Wolf of Death";
         state = new CharacterState((int) (w - 380), 0, 0, 0);
-        logic = new WolfBossLogic(this, 1000);
+        logic = new WolfBossLogic(this, 2000);
         physics = new BossPhysics(this);
         graphics = new WolfBossGraphics(this, "bosses/wolf_of_death.png", 6f, 4, 7);
         activeWeapon = WeaponType.ECLIPSE.data;
