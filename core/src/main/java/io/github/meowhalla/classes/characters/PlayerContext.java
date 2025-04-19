@@ -21,8 +21,8 @@ public class PlayerContext extends CharacterContext {
         logic = new PlayerLogic(this, 100);
         physics = new PlayerPhysics(this);
         graphics = new PlayerGraphics(this, "player/player.png", 0.25f, 1, 2);
-        activeWeapon = WeaponType.SHURIKENS_OF_LIGHT.data;
-        weapons = List.of(WeaponType.SHURIKENS_OF_LIGHT.data);
+        activeWeapon = WeaponType.PHALANX_OF_LIGHT.data;
+        weapons = List.of(WeaponType.PHALANX_OF_LIGHT.data);
     }
 
 }

@@ -55,8 +55,8 @@ public class WolfBossLogic extends CharacterLogic {
         }
 
         // during combo
-        else if (currentComboTime > ctx.activeWeapon.weaponContext().chargeTime()
-            && timeSinceLastShot > ctx.activeWeapon.weaponContext().cooldown()) {
+        else if (currentComboTime > ctx.activeWeapon.getWeaponContext().chargeTime()
+            && timeSinceLastShot > ctx.activeWeapon.getWeaponContext().cooldown()) {
             ctx.state.setAction(Action.ATTACK);
         }
 

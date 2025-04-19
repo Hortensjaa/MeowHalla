@@ -18,7 +18,7 @@ public class WolfBossContext extends CharacterContext {
         logic = new WolfBossLogic(this, 2000);
         physics = new BossPhysics(this);
         graphics = new WolfBossGraphics(this, "bosses/wolf_of_death.png", 6f, 4, 7);
-        activeWeapon = WeaponType.ECLIPSE.data;
+        activeWeapon = WeaponType.MAGIC_ORB_VOLLEY.data;
     }
 
 }

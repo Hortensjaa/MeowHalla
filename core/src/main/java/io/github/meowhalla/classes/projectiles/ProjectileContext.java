@@ -7,26 +7,47 @@ import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.graphics.ProjectileGraphics;
+import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Getter
 @Setter
-abstract public class ProjectileContext implements DynamicObject {
+public class ProjectileContext implements DynamicObject {
 
+    // config values
     protected int power;                      // damage power
     protected CharacterContext owner;         // reference to character who cast it
-    protected ProjectileGraphics graphics;    // graphics reference
     protected Circle hitbox;                  // current position with hitbox
+    protected ProjectileGraphics graphics;
+    protected Direction initialDirection;
 
-    public ProjectileContext(Vector2 origin, String fileName, int power, float radius) {
+    // behavior
+    DelayStrategy delay;
+    MovementStrategy movement;
+    TransformationStrategy transformation;
+
+    // state
+    protected float timeSinceSpawn;
+
+    public ProjectileContext(Vector2 origin, String fileName, int power, float radius, CharacterContext owner) {
         this.hitbox = new Circle(origin.x, origin.y, radius);
         this.power = power;
+        this.owner = owner;
+        this.initialDirection = owner.getDirection();
         graphics = new ProjectileGraphics(this, fileName);
     }
 
-    abstract public void update(float delta);
+    public void update(float delta) {
+        timeSinceSpawn += delta;
+        if (delay.isReady(timeSinceSpawn)) {
+            Vector2 v = new Vector2(movement.update(this, delta));
+            v = transformation.apply(v);
+            v = initialDirection == Direction.RIGHT ? v : new Vector2(-v.x, v.y);
+            hitbox.setPosition(hitbox.x + v.x, hitbox.y + v.y);
+        }
+    }
 
     public void render(SpriteBatch batch) {
         graphics.render(batch);

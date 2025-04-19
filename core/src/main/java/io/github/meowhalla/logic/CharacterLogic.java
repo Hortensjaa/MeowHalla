@@ -22,9 +22,9 @@ public abstract class CharacterLogic {
     public abstract void update(float delta);
 
     public List<ProjectileContext> shoot() {
-        if (timeSinceLastShot > ctx.activeWeapon.weaponContext().cooldown()) {
+        if (timeSinceLastShot > ctx.activeWeapon.getWeaponContext().cooldown()) {
             timeSinceLastShot = 0f;
-            return ctx.activeWeapon.projectileFactory().createProjectiles(ctx);
+            return ctx.activeWeapon.generateProjectiles(ctx);
         }
         return null;
     }
