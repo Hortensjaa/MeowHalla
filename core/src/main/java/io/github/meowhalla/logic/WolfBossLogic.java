@@ -4,6 +4,7 @@ package io.github.meowhalla.logic;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.classes.projectiles.ProjectileContext;
+import io.github.meowhalla.classes.weapons.Weapon;
 import io.github.meowhalla.data.WeaponType;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
@@ -14,26 +15,20 @@ import java.util.stream.Collectors;
 
 public class WolfBossLogic extends CharacterLogic {
     float currentComboTime = 0f;
-    int currentComboId = 0;
-    float[] comboTimes = {5f, 10f, 10f};
-    Supplier<List<ProjectileContext>> combo0 = () -> {
-        ctx.activeWeapon = WeaponType.ECLIPSE.data;
-        return super.shoot();
-    };
-    Supplier<List<ProjectileContext>> combo1 = () -> {
-        ctx.activeWeapon = WeaponType.FAN_OF_ORBS.data;
-        return super.shoot();
-    };
+    int currentComboId = -1;
+    float[] comboTimes = {10f, 15f, 15f};
+    Weapon[] comboWeapons = {WeaponType.ZIGZAG.data, WeaponType.FAN_OF_ORBS.data, WeaponType.MAGIC_ORB_VOLLEY.data};
+    Supplier<List<ProjectileContext>> combo0 = super::shoot;
+    Supplier<List<ProjectileContext>> combo1 = super::shoot;
     Supplier<List<ProjectileContext>> combo2 = () -> {
         List<ProjectileContext> projectiles = super.shoot();
         if (projectiles == null) return null;
-        ctx.activeWeapon = WeaponType.MAGIC_ORB_VOLLEY.data;
         Vector2 origin = ctx.state.getDirection() == Direction.RIGHT
             ? ctx.rightBorder()
             : ctx.leftBorder();
         double r = Math.random();
         if (r <= 0.5) {
-            origin.y -= 100f;
+            origin.y -= 150f;
         } else if (r <= 0.7) {
             origin.y += 100f;
         }
@@ -48,22 +43,30 @@ public class WolfBossLogic extends CharacterLogic {
     }
 
     public void update(float delta) {
-        if (timeSinceLastShot > ctx.activeWeapon.weaponContext().cooldown()) {
-            ctx.state.setAction(Action.ATTACK);
-        } else if (timeSinceLastShot > ctx.activeWeapon.weaponContext().cooldown() * 0.2f) {
-            ctx.state.setAction(Action.IDLE);
+        System.out.println(currentComboId);
+
+        // change combo
+        if ((currentComboTime == 0 && ctx.state.getAction() != Action.CHARGING)
+            || currentComboTime >= comboTimes[currentComboId]) {
+            currentComboId++;
+            currentComboId %= comboSuppliers.size();
+            currentComboTime = 0f;
+            ctx.state.setAction(Action.CHARGING);
+            ctx.activeWeapon = comboWeapons[currentComboId];
         }
+
+        // during combo
+        else if (currentComboTime > ctx.activeWeapon.weaponContext().chargeTime()
+            && timeSinceLastShot > ctx.activeWeapon.weaponContext().cooldown()) {
+            ctx.state.setAction(Action.ATTACK);
+        }
+
         timeSinceLastShot += delta;
         currentComboTime += delta;
     }
 
     @Override
     public List<ProjectileContext> shoot() {
-       if (currentComboTime > comboTimes[currentComboId]) {
-            currentComboId++;
-            currentComboId %= comboSuppliers.size();
-            currentComboTime = 0f;
-       }
-       return comboSuppliers.get(currentComboId).get();
+        return comboSuppliers.get(currentComboId).get();
     }
 }

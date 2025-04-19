@@ -11,7 +11,7 @@ import java.util.List;
 public class MultipleBasicProjectileFactory extends ProjectileFactory {
 
     // projectile stats
-    private Vector2 velocity;
+    private final Vector2 velocity;
     private float gravity;
 
     // factory stats
@@ -24,12 +24,18 @@ public class MultipleBasicProjectileFactory extends ProjectileFactory {
         this.angles = angles;
     }
 
+    public MultipleBasicProjectileFactory(int power, String fileName, float radius, Vector2 velocity, List<Float> angles) {
+        super(power, fileName, radius);
+        this.velocity = velocity;
+        this.angles = angles;
+    }
+
     @Override
     public List<ProjectileContext> createProjectiles(CharacterContext owner) {
         float speed = velocity.len();
         List<ProjectileContext> shots = new ArrayList<>();
         Vector2 width = new Vector2(radius, 0);
-        Vector2 origin = owner.getDirection() == Direction.RIGHT ? owner.rightBorder() : owner.leftBorder().cpy().sub(width); ;
+        Vector2 origin = owner.getDirection() == Direction.RIGHT ? owner.rightBorder() : owner.leftBorder().cpy().sub(width);
         for (float angleOffset : angles) {
             float angle = owner.getDirection() == Direction.RIGHT ? angleOffset : 180 - angleOffset;
             Vector2 v = new Vector2(speed, 0).setAngleDeg(angle);

@@ -8,5 +8,6 @@ public enum Action {
     ATTACK,
     GUARD,
     HIT,
-    DEAD
+    DEAD,
+    CHARGING
 }
