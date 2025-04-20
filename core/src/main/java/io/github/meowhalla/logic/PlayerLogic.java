@@ -18,9 +18,7 @@ public class PlayerLogic extends CharacterLogic {
         boolean left = Gdx.input.isKeyPressed(KeyBindings.LEFT.getKeyCode());
         boolean right = Gdx.input.isKeyPressed(KeyBindings.RIGHT.getKeyCode());
 
-        if (hp <= 0) {
-            ctx.state.setAction(Action.DEAD);
-        } else if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
+        if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
             ctx.state.setAction(Action.ATTACK);
         } else if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
             ctx.state.setAction(Action.JUMP);

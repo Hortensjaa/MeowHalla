@@ -1,7 +1,10 @@
-package io.github.meowhalla.classes.projectiles;
+package io.github.meowhalla.projectiles;
 
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.projectiles.delay.DelayStrategy;
+import io.github.meowhalla.projectiles.movement.MovementStrategy;
+import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 import io.github.meowhalla.states.Direction;
 
 import java.util.function.Supplier;
@@ -32,14 +35,19 @@ public class ProjectileFactory {
     }
 
     public ProjectileContext createProjectile(CharacterContext owner, Vector2 origin) {
-        ProjectileContext p = new ProjectileContext(origin, config.fileName(), config.power(), config.radius(), owner);
+        ProjectileContext p = new ProjectileContext(origin, owner, config);
         p.setMovement(movementSupplier.get());
         p.setDelay(delaySupplier.get());
         p.setTransformation(transformationSupplier.get());
+        p.hitbox.setPosition(p.transformation.applyStart(new Vector2(p.hitbox.x, p.hitbox.y)));
         return p;
     }
 
     public ProjectileContext createProjectile(CharacterContext owner) {
         return createProjectile(owner, calculateOrigin(owner));
+    }
+
+    public ProjectileFactory transformFactory(TransformationStrategy t) {
+        return new ProjectileFactory(config, movementSupplier, delaySupplier, () -> t);
     }
 }

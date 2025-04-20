@@ -1,4 +1,4 @@
-package io.github.meowhalla.classes.projectiles;
+package io.github.meowhalla.projectiles.delay;
 
 
 public class TimedDelay implements DelayStrategy {

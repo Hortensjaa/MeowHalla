@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.classes.characters.PlayerContext;
 import io.github.meowhalla.classes.characters.WolfBossContext;
-import io.github.meowhalla.classes.projectiles.ProjectileContext;
+import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.PlayerState;
 import lombok.Getter;

@@ -1,9 +1,10 @@
-package io.github.meowhalla.classes.projectiles;
+package io.github.meowhalla.projectiles.movement;
 
 import com.badlogic.gdx.math.Vector2;
+import io.github.meowhalla.projectiles.ProjectileContext;
 
 public class StraightMovement implements MovementStrategy {
-    private Vector2 velocity;
+    private final Vector2 velocity;
 
     public StraightMovement(Vector2 velocity) {
         this.velocity = velocity.cpy();

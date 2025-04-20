@@ -1,7 +1,7 @@
 package io.github.meowhalla.logic;
 
 import io.github.meowhalla.classes.characters.CharacterContext;
-import io.github.meowhalla.classes.projectiles.ProjectileContext;
+import io.github.meowhalla.projectiles.ProjectileContext;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,8 @@
-package io.github.meowhalla.classes.projectiles;
+package io.github.meowhalla.projectiles.movement;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import io.github.meowhalla.projectiles.ProjectileContext;
 
 import java.util.List;
 

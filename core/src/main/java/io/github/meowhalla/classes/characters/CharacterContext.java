@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.GameContext;
-import io.github.meowhalla.classes.projectiles.ProjectileContext;
+import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.classes.weapons.Weapon;
 import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.logic.CharacterLogic;

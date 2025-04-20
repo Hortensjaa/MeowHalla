@@ -3,7 +3,7 @@ package io.github.meowhalla.logic;
 
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.characters.CharacterContext;
-import io.github.meowhalla.classes.projectiles.ProjectileContext;
+import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.classes.weapons.Weapon;
 import io.github.meowhalla.data.WeaponType;
 import io.github.meowhalla.states.Action;
@@ -27,9 +27,9 @@ public class WolfBossLogic extends CharacterLogic {
             ? ctx.rightBorder()
             : ctx.leftBorder();
         double r = Math.random();
-        if (r <= 0.5) {
+        if (r <= 0.33) {
             origin.y -= 150f;
-        } else if (r <= 0.7) {
+        } else if (r <= 0.66) {
             origin.y += 100f;
         }
         return projectiles.stream()
