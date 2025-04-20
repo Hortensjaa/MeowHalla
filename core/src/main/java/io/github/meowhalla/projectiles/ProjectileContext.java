@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.graphics.Graphics;
 import io.github.meowhalla.graphics.ProjectileGraphics;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
 import io.github.meowhalla.projectiles.delay.DelayStrategy;
@@ -14,6 +15,8 @@ import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.function.Supplier;
 
 
 @Getter
@@ -26,6 +29,7 @@ public class ProjectileContext implements DynamicObject {
     protected Circle hitbox;                  // current position with hitbox
     protected ProjectileGraphics graphics;
     protected Direction initialDirection;
+    protected Graphics waitingFrames;
 
     // behavior
     DelayStrategy delay;
@@ -34,13 +38,31 @@ public class ProjectileContext implements DynamicObject {
     BaseTransformationStrategy baseTransformation;
 
     // state
-    protected float timeSinceSpawn;
+    protected float timeSinceSpawn = 0f;
 
-    public ProjectileContext(Vector2 origin, CharacterContext owner, ProjectileConfig config) {
-        this.hitbox = new Circle(origin, config.radius());
+    public ProjectileContext(
+        Vector2 origin,
+        CharacterContext owner,
+        ProjectileConfig config,
+        Supplier<MovementStrategy>movementSupplier,
+        Supplier<DelayStrategy> delaySupplier,
+        Supplier<TransformationStrategy> transformationSupplier,
+        Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
+    ) {
         this.power = config.power();
         this.owner = owner;
         this.initialDirection = config.rotateWithPlayer() ? owner.getDirection() : Direction.RIGHT;
+
+        movement = movementSupplier.get();
+
+        delay = delaySupplier.get();
+        waitingFrames = new ProjectileGraphics(this, delay.waitingFramesFilename());
+
+        transformation = transformationSupplier.get();
+
+        baseTransformation = baseTransformationStrategySupplier.get();
+        this.hitbox = new Circle(baseTransformation.apply(origin), config.radius());
+
         graphics = new ProjectileGraphics(this, config.fileName());
     }
 
@@ -55,7 +77,11 @@ public class ProjectileContext implements DynamicObject {
     }
 
     public void render(SpriteBatch batch) {
-        graphics.render(batch);
+        if (delay.isReady(timeSinceSpawn)) {
+            graphics.render(batch);
+        } else {
+            waitingFrames.render(batch);
+        }
     }
 
     public boolean isOffScreen() {

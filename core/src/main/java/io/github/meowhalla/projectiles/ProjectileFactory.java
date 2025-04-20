@@ -26,11 +26,15 @@ public class ProjectileFactory {
     }
 
     private ProjectileContext createProjectileHelper(CharacterContext owner, Vector2 origin) {
-        ProjectileContext p = new ProjectileContext(origin, owner, config);
-        p.setMovement(movementSupplier.get());
-        p.setDelay(delaySupplier.get());
-        p.setTransformation(transformationSupplier.get());
-        p.setBaseTransformation(baseTransformationStrategySupplier.get());
+        ProjectileContext p = new ProjectileContext(
+            origin,
+            owner,
+            config,
+            movementSupplier,
+            delaySupplier,
+            transformationSupplier,
+            baseTransformationStrategySupplier
+        );
         p.hitbox.setPosition(p.baseTransformation.apply(new Vector2(p.hitbox.x, p.hitbox.y)));
         return p;
     }
