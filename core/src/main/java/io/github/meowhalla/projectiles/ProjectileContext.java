@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.graphics.ProjectileGraphics;
+import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
 import io.github.meowhalla.projectiles.delay.DelayStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
@@ -30,6 +31,7 @@ public class ProjectileContext implements DynamicObject {
     DelayStrategy delay;
     MovementStrategy movement;
     TransformationStrategy transformation;
+    BaseTransformationStrategy baseTransformation;
 
     // state
     protected float timeSinceSpawn;
@@ -46,7 +48,7 @@ public class ProjectileContext implements DynamicObject {
         timeSinceSpawn += delta;
         if (delay.isReady(timeSinceSpawn)) {
             Vector2 v = new Vector2(movement.update(this, delta));
-            v = transformation.applyLoop(v);
+            v = transformation.apply(v);
             v = initialDirection == Direction.RIGHT ? v : new Vector2(-v.x, v.y);
             hitbox.setPosition(hitbox.x + v.x, hitbox.y + v.y);
         }

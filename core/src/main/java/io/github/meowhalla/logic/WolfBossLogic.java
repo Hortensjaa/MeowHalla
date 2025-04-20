@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class WolfBossLogic extends CharacterLogic {
     float currentComboTime = 0f;
-    int currentComboId = -1;
+    int currentComboId = 0;
     float[] comboTimes = {10f, 15f, 15f};
     Weapon[] comboWeapons = {WeaponType.ZIGZAG.data, WeaponType.FAN_OF_ORBS.data, WeaponType.MAGIC_ORB_VOLLEY.data};
     Supplier<List<ProjectileContext>> combo0 = super::shoot;
