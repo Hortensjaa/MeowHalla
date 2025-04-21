@@ -2,8 +2,8 @@ package io.github.meowhalla.physics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-import io.github.meowhalla.classes.PlatformContext;
-import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.contexts.PlatformContext;
+import io.github.meowhalla.contexts.CharacterContext;
 import io.github.meowhalla.data.KeyBindings;
 
 

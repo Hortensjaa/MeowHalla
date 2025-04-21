@@ -1,6 +1,6 @@
-package io.github.meowhalla.classes.weapons;
+package io.github.meowhalla.projectiles.weapons;
 
-import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.contexts.CharacterContext;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.ProjectileFactory;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;

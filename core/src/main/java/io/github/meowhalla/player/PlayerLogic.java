@@ -1,9 +1,10 @@
-package io.github.meowhalla.logic;
+package io.github.meowhalla.player;
 
 
 import com.badlogic.gdx.Gdx;
-import io.github.meowhalla.classes.characters.PlayerContext;
+import io.github.meowhalla.contexts.PlayerContext;
 import io.github.meowhalla.data.KeyBindings;
+import io.github.meowhalla.contexts.CharacterLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;

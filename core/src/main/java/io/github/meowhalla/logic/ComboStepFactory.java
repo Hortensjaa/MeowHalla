@@ -1,8 +1,8 @@
 package io.github.meowhalla.logic;
 
-import io.github.meowhalla.classes.GameContext;
-import io.github.meowhalla.classes.characters.CharacterContext;
-import io.github.meowhalla.classes.weapons.Weapon;
+import io.github.meowhalla.contexts.GameContext;
+import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.projectiles.weapons.Weapon;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
 

@@ -1,11 +1,13 @@
-package io.github.meowhalla.graphics;
+package io.github.meowhalla.data.wolf_boss;
 
-import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.graphics.AnimationSet;
+import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.states.Action;
 
-public class WolfBossGraphics extends CharacterGraphics {
+public class WolfGraphics extends CharacterGraphics {
 
-    public WolfBossGraphics(CharacterContext ctx, String fileName, float scaling, int rowsNum, int colsNum) {
+    public WolfGraphics(CharacterContext ctx, String fileName, float scaling, int rowsNum, int colsNum) {
         super(ctx, fileName, scaling, rowsNum, colsNum);
         animationSet = new AnimationSet(frames[0][0]);
         animationSet.put(Action.IDLE, frames[0], 0.2f, 0, 6);

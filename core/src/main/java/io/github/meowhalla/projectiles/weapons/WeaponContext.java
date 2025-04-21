@@ -1,4 +1,4 @@
-package io.github.meowhalla.classes.weapons;
+package io.github.meowhalla.projectiles.weapons;
 
 public record WeaponContext(
     String name,

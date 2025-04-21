@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.contexts.CharacterContext;
 import io.github.meowhalla.states.Direction;
 
 public abstract class CharacterGraphics implements Graphics {

@@ -1,4 +1,4 @@
-package io.github.meowhalla.classes;
+package io.github.meowhalla.contexts;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -6,10 +6,8 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import io.github.meowhalla.classes.characters.CharacterContext;
-import io.github.meowhalla.classes.characters.PlayerContext;
-import io.github.meowhalla.classes.characters.WolfBossContext;
-import io.github.meowhalla.logic.PlayerLogic;
+import io.github.meowhalla.data.wolf_boss.WolfContext;
+import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.PlayerState;
@@ -22,8 +20,8 @@ import java.util.List;
 @Getter
 public class GameContext {
     private final PlayerContext player;
-    private final CharacterContext boss;
-    private final List<DynamicObject> projectiles = new ArrayList<>();
+    private final BossContext boss;
+    private final List<ProjectileContext> projectiles = new ArrayList<>();
     private final List<PlatformContext> platforms = new ArrayList<>();
     private final OrthographicCamera camera;
     private final Viewport viewport;
@@ -36,7 +34,7 @@ public class GameContext {
         camera.update();
 
         player = new PlayerContext(this);
-        boss = new WolfBossContext(this);
+        boss = new WolfContext(this);
 
         platforms.add(new PlatformContext(200, 150, 300, 20));
         platforms.add(new PlatformContext(600, 250, 200, 20));
@@ -69,7 +67,7 @@ public class GameContext {
     }
 
     public void checkCollisions(float delta) {
-        Iterator<DynamicObject> iterator = projectiles.iterator();
+        Iterator<ProjectileContext> iterator = projectiles.iterator();
         while (iterator.hasNext()) {
             ProjectileContext p = (ProjectileContext) iterator.next();
             p.update(delta);

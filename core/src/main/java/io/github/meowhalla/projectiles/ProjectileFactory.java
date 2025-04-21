@@ -1,7 +1,7 @@
 package io.github.meowhalla.projectiles;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.contexts.CharacterContext;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
 import io.github.meowhalla.projectiles.delay.DelayStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;

@@ -1,10 +1,9 @@
-package io.github.meowhalla.classes.characters;
+package io.github.meowhalla.contexts;
 
-import io.github.meowhalla.classes.GameContext;
-import io.github.meowhalla.classes.weapons.Weapon;
+import io.github.meowhalla.projectiles.weapons.Weapon;
 import io.github.meowhalla.data.WeaponType;
 import io.github.meowhalla.graphics.PlayerGraphics;
-import io.github.meowhalla.logic.PlayerLogic;
+import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.physics.PlayerPhysics;
 import io.github.meowhalla.states.Direction;
 import io.github.meowhalla.states.PlayerState;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import io.github.meowhalla.classes.PlatformContext;
+import io.github.meowhalla.contexts.PlatformContext;
 
 public class PlatformGraphics implements Graphics {
     private final PlatformContext ctx;

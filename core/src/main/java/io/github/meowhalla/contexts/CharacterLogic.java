@@ -1,11 +1,10 @@
-package io.github.meowhalla.logic;
+package io.github.meowhalla.contexts;
 
-import io.github.meowhalla.classes.characters.CharacterContext;
 import lombok.Getter;
 import lombok.Setter;
 
 public abstract class CharacterLogic {
-    CharacterContext ctx;
+    protected CharacterContext ctx;
     @Getter int max_hp;
     @Setter @Getter int hp;
     public float timeSinceLastShot = 0f;

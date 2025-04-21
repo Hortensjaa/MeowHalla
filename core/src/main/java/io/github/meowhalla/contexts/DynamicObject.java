@@ -1,4 +1,4 @@
-package io.github.meowhalla.classes;
+package io.github.meowhalla.contexts;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

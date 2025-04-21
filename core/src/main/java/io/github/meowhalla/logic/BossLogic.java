@@ -1,7 +1,8 @@
 package io.github.meowhalla.logic;
 
 
-import io.github.meowhalla.classes.characters.CharacterContext;
+import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.contexts.CharacterLogic;
 
 public class BossLogic extends CharacterLogic {
     private Combo currentCombo = null;

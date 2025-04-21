@@ -1,8 +1,6 @@
-package io.github.meowhalla.logic.wolf_boss;
+package io.github.meowhalla.data.wolf_boss;
 
-import io.github.meowhalla.classes.GameContext;
-import io.github.meowhalla.classes.characters.WolfBossContext;
-import io.github.meowhalla.data.WeaponType;
+import io.github.meowhalla.contexts.GameContext;
 import io.github.meowhalla.logic.Combo;
 import io.github.meowhalla.logic.ComboFactory;
 import io.github.meowhalla.logic.ComboStep;
@@ -17,19 +15,19 @@ import java.util.function.Supplier;
 
 
 public class WolfComboFactory implements ComboFactory {
-    static WolfBossContext ctx;
+    static WolfContext ctx;
     static GameContext game;
 
-    public WolfComboFactory(WolfBossContext ctx) {
+    public WolfComboFactory(WolfContext ctx) {
         WolfComboFactory.ctx = ctx;
         WolfComboFactory.game = ctx.getGameContext();
     }
 
     public static Combo makeZigzagCombo() {
         return new Combo(List.of(
-            ComboStepFactory.casting(1f, ctx, WeaponType.ZIGZAG.data),
+            ComboStepFactory.casting(1f, ctx, WolfWeapons.ZIGZAG.data),
             ComboStepFactory.continuousFire(5f, ctx, game, 0.5f),
-            ComboStepFactory.casting(1f, ctx, WeaponType.REVERSED_ZIGZAG.data),
+            ComboStepFactory.casting(1f, ctx, WolfWeapons.REVERSED_ZIGZAG.data),
             ComboStepFactory.continuousFire(5f, ctx, game, 0.5f),
             ComboStepFactory.idle(1f, ctx)
         ));
@@ -37,7 +35,7 @@ public class WolfComboFactory implements ComboFactory {
 
     public static Combo makeFanOfOrbsCombo() {
         return new Combo(List.of(
-            ComboStepFactory.casting(1f, ctx, WeaponType.FAN_OF_ORBS.data),
+            ComboStepFactory.casting(1f, ctx, WolfWeapons.FAN_OF_ORBS.data),
             ComboStepFactory.continuousFire(5f, ctx, game, 0.8f),
             ComboStepFactory.idle(1f, ctx)
         ));
@@ -45,12 +43,10 @@ public class WolfComboFactory implements ComboFactory {
 
     public static Combo makeVolleyCombo() {
         return new Combo(List.of(
-            ComboStepFactory.casting(1f, ctx, WeaponType.MAGIC_ORB_VOLLEY.data),
+            ComboStepFactory.casting(1f, ctx, WolfWeapons.MAGIC_ORB_VOLLEY.data),
             new ComboStep(
                 10f,
-                () -> {
-                    ctx.state.setAction(Action.ATTACK);
-                },
+                () -> ctx.state.setAction(Action.ATTACK),
                 new Consumer<>() {
                     float shootTimer = 0f;
                     @Override
@@ -72,7 +68,7 @@ public class WolfComboFactory implements ComboFactory {
                     }
                 }
             ),
-            ComboStepFactory.casting(1f, ctx, WeaponType.MAGIC_ORB_VOLLEY.data)
+            ComboStepFactory.casting(1f, ctx, WolfWeapons.MAGIC_ORB_VOLLEY.data)
         ));
     }
 
