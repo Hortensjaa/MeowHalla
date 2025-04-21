@@ -1,6 +1,8 @@
 package io.github.meowhalla.projectiles.delay;
 
-public interface DelayStrategy {
+import io.github.meowhalla.projectiles.Strategy;
+
+public interface DelayStrategy extends Strategy {
     String waitingFramesFilename();
     boolean isReady(float timeSinceSpawn);
 }

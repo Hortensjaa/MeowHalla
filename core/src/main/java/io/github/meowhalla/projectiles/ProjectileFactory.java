@@ -43,11 +43,20 @@ public class ProjectileFactory {
         return createProjectileHelper(owner, calculateOrigin(owner));
     }
 
-    public ProjectileFactory transformFactory(TransformationStrategy t) {
-        return new ProjectileFactory(config, movementSupplier, delaySupplier, () -> t, baseTransformationStrategySupplier);
+    public ProjectileFactory withTransformation(Supplier<TransformationStrategy> t) {
+        return new ProjectileFactory(config, movementSupplier, delaySupplier, t, baseTransformationStrategySupplier);
     }
 
-    public ProjectileFactory transformFactory(BaseTransformationStrategy bt) {
-        return new ProjectileFactory(config, movementSupplier, delaySupplier, transformationSupplier, () -> bt);
+    public ProjectileFactory withBaseTransformation(Supplier<BaseTransformationStrategy> t) {
+        return new ProjectileFactory(config, movementSupplier, delaySupplier, transformationSupplier, t);
     }
+
+    public ProjectileFactory withDelay(Supplier<DelayStrategy> t) {
+        return new ProjectileFactory(config, movementSupplier, t, transformationSupplier, baseTransformationStrategySupplier);
+    }
+
+    public ProjectileFactory withMovement(Supplier<MovementStrategy> t) {
+        return new ProjectileFactory(config, t, delaySupplier, transformationSupplier, baseTransformationStrategySupplier);
+    }
+
 }

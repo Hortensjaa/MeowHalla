@@ -57,23 +57,19 @@ public enum WolfWeapons {
             new ProjectileFactoryBuilder()
                 .config(new ProjectileConfig(10, "weapons/Magic Orb.png", 15, false))
                 .movement(() -> new WindingMovement(List.of(
-                new Vector3(-200, 400, 1f),
-                            new Vector3(-200, -400, 1f)
-                        )))
+                    new Vector3(-200, 400, 1f),
+                    new Vector3(-200, -400, 1f)
+                )))
                 .build())
     ),
 
     REVERSED_ZIGZAG(
-        new Weapon(
-            new WeaponContext("ZIGZAG ORB", 0.6f, 2f),
-            new ProjectileFactoryBuilder()
-                .config(new ProjectileConfig(10, "weapons/Magic Orb.png", 15, false))
-                .movement(() -> new WindingMovement(List.of(
-                new Vector3(400, -1200, 0.5f),
-                            new Vector3(400, 1200, 0.5f)
-                        )))
-                .baseTransformation(() -> new FixedOrigin(15, 600))
-                .build())
+        ZIGZAG.data
+            .changeBase(() -> new FixedOrigin(25, 600))
+            .changeMovement(() -> new WindingMovement(List.of(
+                new Vector3(200, -800, 0.75f),
+                new Vector3(200, 800, 0.75f)
+            )))
     );
 
     public final Weapon data;

@@ -1,13 +1,14 @@
 package io.github.meowhalla.logic;
 
-import io.github.meowhalla.contexts.GameContext;
 import io.github.meowhalla.contexts.CharacterContext;
-import io.github.meowhalla.projectiles.weapons.Weapon;
+import io.github.meowhalla.contexts.GameContext;
 import io.github.meowhalla.projectiles.ProjectileContext;
+import io.github.meowhalla.projectiles.weapons.Weapon;
 import io.github.meowhalla.states.Action;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ComboStepFactory {
 
@@ -27,6 +28,36 @@ public class ComboStepFactory {
             duration,
             () -> ctx.state.setAction(Action.IDLE),
             null
+        );
+    }
+
+    public static ComboStep randomizedFire(
+            float duration,
+            CharacterContext ctx,
+            GameContext game,
+            float cooldown,
+            Function<ProjectileContext, ProjectileContext> modifier
+    ) {
+        return new ComboStep(
+                duration,
+                () -> ctx.state.setAction(Action.IDLE),
+                new Consumer<>() {
+                    float shootTimer = 0f;
+
+                    @Override
+                    public void accept(Float delta) {
+                        shootTimer += delta;
+                        if (shootTimer >= cooldown) {
+                            shootTimer = 0f;
+                            List<ProjectileContext> projectiles = ctx.activeWeapon.generateProjectiles(ctx);
+                            if (projectiles != null) {
+                                game.getProjectiles().addAll(
+                                        projectiles.stream().map(modifier).toList()
+                                );
+                            }
+                        }
+                    }
+                }
         );
     }
 
