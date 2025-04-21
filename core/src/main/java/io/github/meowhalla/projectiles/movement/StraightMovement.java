@@ -10,6 +10,10 @@ public class StraightMovement implements MovementStrategy {
         this.velocity = velocity.cpy();
     }
 
+    public StraightMovement(float dx, float dy) {
+        this.velocity = new Vector2(dx, dy);
+    }
+
     @Override
     public Vector2 update(ProjectileContext p, float delta) {
         return new Vector2(velocity.x * delta, velocity.y * delta);

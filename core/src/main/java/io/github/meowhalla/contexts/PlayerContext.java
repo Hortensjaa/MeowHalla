@@ -1,7 +1,8 @@
 package io.github.meowhalla.contexts;
 
+import io.github.meowhalla.game.GameContext;
 import io.github.meowhalla.projectiles.Weapon;
-import io.github.meowhalla.data.WeaponType;
+import io.github.meowhalla.data.PlayerWeapons;
 import io.github.meowhalla.graphics.PlayerGraphics;
 import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.physics.PlayerPhysics;
@@ -20,8 +21,8 @@ public class PlayerContext extends CharacterContext {
         logic = new PlayerLogic(this, 100);
         physics = new PlayerPhysics(this);
         graphics = new PlayerGraphics(this, "player/player.png", 0.25f, 1, 2);
-        activeWeapon = WeaponType.PHALANX_OF_LIGHT.data;
-        weapons = List.of(WeaponType.PHALANX_OF_LIGHT.data);
+        activeWeapon = PlayerWeapons.LUNAR_ECLIPSE.data;
+        weapons = List.of(PlayerWeapons.PHALANX_OF_LIGHT.data);
     }
 
 }

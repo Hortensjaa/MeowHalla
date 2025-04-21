@@ -1,12 +1,17 @@
 package io.github.meowhalla.data.wolf_boss;
 
-import io.github.meowhalla.contexts.GameContext;
+import io.github.meowhalla.game.GameContext;
+import io.github.meowhalla.game.ViewportUtils;
 import io.github.meowhalla.logic.Combo;
 import io.github.meowhalla.logic.ComboFactory;
 import io.github.meowhalla.logic.ComboStepFactory;
+import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.base_transformation.Translation;
+import io.github.meowhalla.projectiles.movement.StraightMovement;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 
@@ -19,7 +24,7 @@ public class WolfComboFactory implements ComboFactory {
         WolfComboFactory.game = ctx.getGameContext();
     }
 
-    public static Combo makeZigzagCombo() {
+    public static Combo zigzagCombo() {
         return new Combo(List.of(
             ComboStepFactory.casting(1f, ctx, WolfWeapons.ZIGZAG.data),
             ComboStepFactory.continuousFire(5f, ctx, game, 0.5f),
@@ -29,7 +34,7 @@ public class WolfComboFactory implements ComboFactory {
         ));
     }
 
-    public static Combo makeFanOfOrbsCombo() {
+    public static Combo fanOfOrbsCombo() {
         return new Combo(List.of(
             ComboStepFactory.casting(1f, ctx, WolfWeapons.FAN_OF_ORBS.data),
             ComboStepFactory.continuousFire(5f, ctx, game, 0.8f),
@@ -37,34 +42,67 @@ public class WolfComboFactory implements ComboFactory {
         ));
     }
 
-    public static Combo makeVolleyCombo() {
+    public static Combo volleyCombo() {
+        Function<ProjectileContext, ProjectileContext> randomizedFireHelper = (ProjectileContext p) -> {
+            Translation t = new Translation(0, 0);
+            double r = Math.random();
+            if (r <= 0.33) t.setY(150);
+            else if (r <= 0.66) t.setY(-150);
+            p.setBaseTransformation(t);
+            return p;
+        };
+
         return new Combo(List.of(
             ComboStepFactory.casting(1f, ctx, WolfWeapons.MAGIC_ORB_VOLLEY.data),
-            ComboStepFactory.randomizedFire(10f, ctx, game, 1f, p -> {
-                Translation t = new Translation(0, 0);
-                double r = Math.random();
-                if (r <= 0.33) t.setY(150);
-                else if (r <= 0.66) t.setY(-150);
-                p.setBaseTransformation(t);
-                return p;
-            }),
-            ComboStepFactory.casting(1f, ctx, WolfWeapons.MAGIC_ORB_VOLLEY.data)
+            ComboStepFactory.randomizedFire(5f, ctx, game, 1f, randomizedFireHelper),
+            ComboStepFactory.casting(1f, ctx, WolfWeapons.REVERSED_VOLLEY.data),
+            ComboStepFactory.randomizedFire(5f, ctx, game, 0.75f, randomizedFireHelper),
+            ComboStepFactory.casting(1f, ctx,
+                WolfWeapons.MAGIC_ORB_VOLLEY.data.transform(() -> new StraightMovement(1200, 0))),
+            ComboStepFactory.randomizedFire(5f, ctx, game, 0.75f, randomizedFireHelper),
+            ComboStepFactory.casting(1f, ctx,
+                WolfWeapons.REVERSED_VOLLEY.data.transform(() -> new StraightMovement(-1200, 0))),
+            ComboStepFactory.randomizedFire(5f, ctx, game, 0.75f, randomizedFireHelper),
+            ComboStepFactory.idle(2f, ctx)
+        ));
+    }
+
+    public static Combo rainCombo() {
+        Function<ProjectileContext, ProjectileContext> randomizedRainHelper = (ProjectileContext p) -> {
+            Translation t = new Translation(0, 0);
+            double r = Math.random();
+            t.setX((float) (r * ViewportUtils.right()));
+            p.setBaseTransformation(t);
+            return p;
+        };
+
+        return new Combo(List.of(
+            ComboStepFactory.casting(1f, ctx, WolfWeapons.MAGIC_RAIN.data),
+            ComboStepFactory.randomizedFire(5f, ctx, game, 0.1f, randomizedRainHelper),
+            ComboStepFactory.idle(1f, ctx)
         ));
     }
 
     private final List<Supplier<Combo>> combos = List.of(
-        WolfComboFactory::makeZigzagCombo,
-        WolfComboFactory::makeVolleyCombo,
-        WolfComboFactory::makeFanOfOrbsCombo
+        WolfComboFactory::zigzagCombo,
+        WolfComboFactory::volleyCombo,
+        WolfComboFactory::fanOfOrbsCombo,
+        WolfComboFactory::rainCombo
     );
-    private int lastIndex = 1;
+    private int lastIndex = 0;
 
     @Override
     public Combo getNext() {
-        double r = Math.random();
-        if (r < 0.45) lastIndex = (lastIndex + 1) % combos.size();
-        if (r > 0.55) lastIndex = (lastIndex - 1) < 0 ? combos.size() - 1 : lastIndex - 1;
+        int size = combos.size();
+        List<Integer> indices = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (i != lastIndex) {
+                indices.add(i);
+            }
+        }
+        lastIndex = indices.get((int)(Math.random() * indices.size()));
         return combos.get(lastIndex).get();
     }
+
 }
 

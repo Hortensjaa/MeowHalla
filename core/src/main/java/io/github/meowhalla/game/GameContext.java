@@ -1,4 +1,4 @@
-package io.github.meowhalla.contexts;
+package io.github.meowhalla.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -6,6 +6,10 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import io.github.meowhalla.contexts.BossContext;
+import io.github.meowhalla.contexts.DynamicObject;
+import io.github.meowhalla.contexts.PlatformContext;
+import io.github.meowhalla.contexts.PlayerContext;
 import io.github.meowhalla.data.wolf_boss.WolfContext;
 import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
@@ -19,6 +23,9 @@ import java.util.List;
 
 @Getter
 public class GameContext {
+    @Getter
+    private static GameContext instance;
+
     private final PlayerContext player;
     private final BossContext boss;
     private final List<ProjectileContext> projectiles = new ArrayList<>();
@@ -27,6 +34,8 @@ public class GameContext {
     private final Viewport viewport;
 
     public GameContext() {
+        instance = this;
+
         camera = new OrthographicCamera();
         viewport = new FitViewport(1280, 720, camera);
         viewport.apply();

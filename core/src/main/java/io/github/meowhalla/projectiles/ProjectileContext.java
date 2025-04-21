@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 public class ProjectileContext implements DynamicObject {
 
     // config values
-    protected int power;                      // damage power
+    protected float power;                      // damage power
     protected CharacterContext owner;         // reference to character who cast it
     protected Circle hitbox;                  // current position with hitbox
     protected ProjectileGraphics graphics;

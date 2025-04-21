@@ -1,7 +1,7 @@
 package io.github.meowhalla.data.wolf_boss;
 
 import io.github.meowhalla.contexts.BossContext;
-import io.github.meowhalla.contexts.GameContext;
+import io.github.meowhalla.game.GameContext;
 import io.github.meowhalla.logic.BossLogic;
 import io.github.meowhalla.physics.BossPhysics;
 import io.github.meowhalla.states.BossState;

@@ -3,6 +3,7 @@ package io.github.meowhalla.contexts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import io.github.meowhalla.game.GameContext;
 import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.physics.CharacterPhysics;
@@ -58,15 +59,15 @@ public abstract class CharacterContext implements DynamicObject {
             state.getPosition().y + state.getPosition().height / 2);
     }
 
-    public void updateHp(int val) {
+    public void updateHp(float val) {
         logic.setHp(logic.getHp() + val);
     }
 
-    public int getHp() {
+    public float getHp() {
         return logic.getHp();
     }
 
-    public int getMax_hp() {
+    public float getMax_hp() {
         return logic.getMax_hp();
     }
 }

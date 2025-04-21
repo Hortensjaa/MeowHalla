@@ -5,8 +5,8 @@ import lombok.Setter;
 
 public abstract class CharacterLogic {
     protected CharacterContext ctx;
-    @Getter int max_hp;
-    @Setter @Getter int hp;
+    @Getter float max_hp;
+    @Setter @Getter float hp;
     public float timeSinceLastShot = 0f;
 
     public CharacterLogic(CharacterContext ctx, int max_hp) {

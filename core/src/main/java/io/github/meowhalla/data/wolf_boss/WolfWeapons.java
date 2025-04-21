@@ -1,30 +1,37 @@
 package io.github.meowhalla.data.wolf_boss;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import io.github.meowhalla.game.ViewportUtils;
 import io.github.meowhalla.projectiles.ProjectileConfig;
 import io.github.meowhalla.projectiles.ProjectileFactoryBuilder;
+import io.github.meowhalla.projectiles.Weapon;
+import io.github.meowhalla.projectiles.WeaponContext;
 import io.github.meowhalla.projectiles.base_transformation.FixedOrigin;
 import io.github.meowhalla.projectiles.delay.TimedDelay;
 import io.github.meowhalla.projectiles.movement.StraightMovement;
+import io.github.meowhalla.projectiles.movement.AcceleratedMovement;
 import io.github.meowhalla.projectiles.movement.WindingMovement;
 import io.github.meowhalla.projectiles.transformation.Rotation;
-import io.github.meowhalla.projectiles.Weapon;
-import io.github.meowhalla.projectiles.WeaponContext;
 
 import java.util.List;
 
 public enum WolfWeapons {
     MAGIC_ORB_VOLLEY(
         new Weapon(
-            new WeaponContext("Magic Orb Volley", 1f, 3f),
+            new WeaponContext("Magic Orb Volley", 0.75f, 3f),
             new ProjectileFactoryBuilder()
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, false))
-                .movement(() -> new StraightMovement(new Vector2(700, 0)))
-                .baseTransformation(() -> new FixedOrigin(25, 200))
-                .delay(() -> new TimedDelay(1f, "weapons/Magic Sparks.png"))
+                .movement(() -> new StraightMovement(700, 0))
+                .baseTransformation(() -> new FixedOrigin(ViewportUtils.left() + 25, 200))
+                .delay(() -> new TimedDelay(0.5f, "weapons/Magic Sparks.png"))
                 .build()
         )
+    ),
+
+    REVERSED_VOLLEY(
+        MAGIC_ORB_VOLLEY.data
+            .transform(() -> new FixedOrigin(ViewportUtils.right() - 25, 200))
+            .transform(() -> new StraightMovement(-900, 0))
     ),
 
     FAN_OF_ORBS(
@@ -32,7 +39,7 @@ public enum WolfWeapons {
             new WeaponContext("FAN OF ORBS", 1f, 3f),
             new ProjectileFactoryBuilder()
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, true))
-                .movement(() -> new StraightMovement(new Vector2(600, 0)))
+                .movement(() -> new StraightMovement(600, 0))
                 .build(),
             List.of(
                 new Rotation(0f),
@@ -42,12 +49,22 @@ public enum WolfWeapons {
             ))
         ),
 
-    ECLIPSE(
+    SOLAR_ECLIPSE(
         new Weapon(
-            new WeaponContext("ECLIPSE", 2f, 2f),
+            new WeaponContext("SOLAR ECLIPSE", 2f, 2f),
             new ProjectileFactoryBuilder()
                 .config(new ProjectileConfig(60, "weapons/Magic Orb.png", 50, true))
-                .movement(() -> new StraightMovement(new Vector2(400, 0)))
+                .movement(() -> new StraightMovement(400, 0))
+                .build())
+    ),
+
+    MAGIC_RAIN(
+        new Weapon(
+            new WeaponContext("Magic Rain", 0.5f, 2f),
+            new ProjectileFactoryBuilder()
+                .config(new ProjectileConfig(25, "weapons/Magic Orb.png", 10, false))
+                .movement(() -> new AcceleratedMovement(0, -500, 1200))
+                .baseTransformation(() -> new FixedOrigin(ViewportUtils.left(), ViewportUtils.top()))
                 .build())
     ),
 
@@ -65,7 +82,7 @@ public enum WolfWeapons {
 
     REVERSED_ZIGZAG(
         ZIGZAG.data
-            .transform(() -> new FixedOrigin(25, 600))
+            .transform(() -> new FixedOrigin(ViewportUtils.left() + 25, 600))
             .transform(() -> new WindingMovement(List.of(
                 new Vector3(200, -800, 0.75f),
                 new Vector3(200, 800, 0.75f)

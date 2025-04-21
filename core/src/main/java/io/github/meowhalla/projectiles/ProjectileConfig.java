@@ -1,7 +1,7 @@
 package io.github.meowhalla.projectiles;
 
 public record ProjectileConfig (
-    int power,
+    float power,
     String fileName,
     float radius,
     boolean rotateWithPlayer
