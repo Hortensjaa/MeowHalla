@@ -5,8 +5,8 @@ import io.github.meowhalla.projectiles.ProjectileConfig;
 import io.github.meowhalla.projectiles.ProjectileFactoryBuilder;
 import io.github.meowhalla.projectiles.movement.StraightMovement;
 import io.github.meowhalla.projectiles.transformation.Rotation;
-import io.github.meowhalla.projectiles.weapons.Weapon;
-import io.github.meowhalla.projectiles.weapons.WeaponContext;
+import io.github.meowhalla.projectiles.Weapon;
+import io.github.meowhalla.projectiles.WeaponContext;
 
 import java.util.List;
 

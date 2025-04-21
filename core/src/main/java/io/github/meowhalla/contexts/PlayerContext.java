@@ -1,6 +1,6 @@
 package io.github.meowhalla.contexts;
 
-import io.github.meowhalla.projectiles.weapons.Weapon;
+import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.data.WeaponType;
 import io.github.meowhalla.graphics.PlayerGraphics;
 import io.github.meowhalla.player.PlayerLogic;

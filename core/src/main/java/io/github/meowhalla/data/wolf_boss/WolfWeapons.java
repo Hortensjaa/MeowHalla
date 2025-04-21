@@ -9,8 +9,8 @@ import io.github.meowhalla.projectiles.delay.TimedDelay;
 import io.github.meowhalla.projectiles.movement.StraightMovement;
 import io.github.meowhalla.projectiles.movement.WindingMovement;
 import io.github.meowhalla.projectiles.transformation.Rotation;
-import io.github.meowhalla.projectiles.weapons.Weapon;
-import io.github.meowhalla.projectiles.weapons.WeaponContext;
+import io.github.meowhalla.projectiles.Weapon;
+import io.github.meowhalla.projectiles.WeaponContext;
 
 import java.util.List;
 
@@ -65,8 +65,8 @@ public enum WolfWeapons {
 
     REVERSED_ZIGZAG(
         ZIGZAG.data
-            .changeBase(() -> new FixedOrigin(25, 600))
-            .changeMovement(() -> new WindingMovement(List.of(
+            .transform(() -> new FixedOrigin(25, 600))
+            .transform(() -> new WindingMovement(List.of(
                 new Vector3(200, -800, 0.75f),
                 new Vector3(200, 800, 0.75f)
             )))

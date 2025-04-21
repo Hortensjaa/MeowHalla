@@ -3,7 +3,7 @@ package io.github.meowhalla.contexts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.projectiles.weapons.Weapon;
+import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.physics.CharacterPhysics;
 import io.github.meowhalla.states.Action;

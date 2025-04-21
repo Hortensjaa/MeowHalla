@@ -43,20 +43,29 @@ public class ProjectileFactory {
         return createProjectileHelper(owner, calculateOrigin(owner));
     }
 
-    public ProjectileFactory withTransformation(Supplier<TransformationStrategy> t) {
-        return new ProjectileFactory(config, movementSupplier, delaySupplier, t, baseTransformationStrategySupplier);
-    }
+    public ProjectileFactory transform(Supplier<Strategy> s) {
+        Strategy strategy = s.get();
 
-    public ProjectileFactory withBaseTransformation(Supplier<BaseTransformationStrategy> t) {
-        return new ProjectileFactory(config, movementSupplier, delaySupplier, transformationSupplier, t);
-    }
+        if (strategy instanceof TransformationStrategy) {
+            Supplier<TransformationStrategy> wrapped = () -> (TransformationStrategy) s.get();
+            return new ProjectileFactory(config, movementSupplier, delaySupplier, wrapped, baseTransformationStrategySupplier);
+        }
 
-    public ProjectileFactory withDelay(Supplier<DelayStrategy> t) {
-        return new ProjectileFactory(config, movementSupplier, t, transformationSupplier, baseTransformationStrategySupplier);
-    }
+        if (strategy instanceof BaseTransformationStrategy) {
+            Supplier<BaseTransformationStrategy> wrapped = () -> (BaseTransformationStrategy) s.get();
+            return new ProjectileFactory(config, movementSupplier, delaySupplier, transformationSupplier, wrapped);
+        }
 
-    public ProjectileFactory withMovement(Supplier<MovementStrategy> t) {
-        return new ProjectileFactory(config, t, delaySupplier, transformationSupplier, baseTransformationStrategySupplier);
-    }
+        if (strategy instanceof DelayStrategy) {
+            Supplier<DelayStrategy> wrapped = () -> (DelayStrategy) s.get();
+            return new ProjectileFactory(config, movementSupplier, wrapped, transformationSupplier, baseTransformationStrategySupplier);
+        }
 
+        if (strategy instanceof MovementStrategy) {
+            Supplier<MovementStrategy> wrapped = () -> (MovementStrategy) s.get();
+            return new ProjectileFactory(config, wrapped, delaySupplier, transformationSupplier, baseTransformationStrategySupplier);
+        }
+
+        throw new IllegalArgumentException("Unknown strategy type: " + strategy.getClass());
+    }
 }
