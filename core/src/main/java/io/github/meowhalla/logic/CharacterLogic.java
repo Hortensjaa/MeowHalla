@@ -1,11 +1,8 @@
 package io.github.meowhalla.logic;
 
 import io.github.meowhalla.classes.characters.CharacterContext;
-import io.github.meowhalla.projectiles.ProjectileContext;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 public abstract class CharacterLogic {
     CharacterContext ctx;
@@ -20,12 +17,4 @@ public abstract class CharacterLogic {
     }
 
     public abstract void update(float delta);
-
-    public List<ProjectileContext> shoot() {
-        if (timeSinceLastShot > ctx.activeWeapon.getWeaponContext().cooldown()) {
-            timeSinceLastShot = 0f;
-            return ctx.activeWeapon.generateProjectiles(ctx);
-        }
-        return null;
-    }
 }

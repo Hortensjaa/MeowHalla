@@ -44,7 +44,7 @@ public class ProjectileContext implements DynamicObject {
         Vector2 origin,
         CharacterContext owner,
         ProjectileConfig config,
-        Supplier<MovementStrategy>movementSupplier,
+        Supplier<MovementStrategy> movementSupplier,
         Supplier<DelayStrategy> delaySupplier,
         Supplier<TransformationStrategy> transformationSupplier,
         Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
@@ -64,6 +64,11 @@ public class ProjectileContext implements DynamicObject {
         this.hitbox = new Circle(baseTransformation.apply(origin), config.radius());
 
         graphics = new ProjectileGraphics(this, config.fileName());
+    }
+
+    public void setBaseTransformation(BaseTransformationStrategy newBaseTransformation) {
+        this.baseTransformation = newBaseTransformation;
+        hitbox.set(newBaseTransformation.apply(new Vector2(hitbox.x, hitbox.y)), hitbox.radius);
     }
 
     public void update(float delta) {

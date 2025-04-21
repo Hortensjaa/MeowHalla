@@ -22,7 +22,7 @@ public enum WeaponType {
             new ProjectileFactoryBuilder()
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, false))
                 .movement(() -> new StraightMovement(new Vector2(700, 0)))
-                .baseTransformation(() -> new FixedOrigin(25, 500))
+                .baseTransformation(() -> new FixedOrigin(25, 200))
                 .delay(() -> new TimedDelay(1f, "weapons/Magic Sparks.png"))
                 .build()
         )
@@ -63,6 +63,20 @@ public enum WeaponType {
                     new Vector3(-200, 400, 1f),
                     new Vector3(-200, -400, 1f)
                 )))
+                .build()
+        )
+    ),
+
+    REVERSED_ZIGZAG(
+        new Weapon(
+            new WeaponContext("ZIGZAG ORB", 0.6f, 2f),
+            new ProjectileFactoryBuilder()
+                .config(new ProjectileConfig(10, "weapons/Magic Orb.png", 15, false))
+                .movement(() -> new WindingMovement(List.of(
+                    new Vector3(400, -1200, 0.5f),
+                    new Vector3(400, 1200, 0.5f)
+                )))
+                .baseTransformation(() -> new FixedOrigin(15, 600))
                 .build()
         )
     ),

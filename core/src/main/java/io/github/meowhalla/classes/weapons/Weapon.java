@@ -31,7 +31,6 @@ public class Weapon {
         }
     }
 
-
     public List<ProjectileContext> generateProjectiles(CharacterContext ctx) {
         List<ProjectileContext> projectiles = new ArrayList<>();
         for (ProjectileFactory factory : projectileFactories) {

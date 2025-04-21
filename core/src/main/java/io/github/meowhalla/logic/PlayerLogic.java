@@ -4,9 +4,12 @@ package io.github.meowhalla.logic;
 import com.badlogic.gdx.Gdx;
 import io.github.meowhalla.classes.characters.PlayerContext;
 import io.github.meowhalla.data.KeyBindings;
+import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
 import io.github.meowhalla.states.PlayerState;
+
+import java.util.List;
 
 public class PlayerLogic extends CharacterLogic {
 
@@ -44,5 +47,12 @@ public class PlayerLogic extends CharacterLogic {
         ((PlayerState) ctx.state).increaseTime(delta);
     }
 
+    public List<ProjectileContext> shoot() {
+        if (timeSinceLastShot > ctx.activeWeapon.getWeaponContext().cooldown()) {
+            timeSinceLastShot = 0f;
+            return ctx.activeWeapon.generateProjectiles(ctx);
+        }
+        return null;
+    }
 }
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.meowhalla.classes.characters.CharacterContext;
 import io.github.meowhalla.classes.characters.PlayerContext;
 import io.github.meowhalla.classes.characters.WolfBossContext;
+import io.github.meowhalla.logic.PlayerLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.PlayerState;
@@ -45,19 +46,14 @@ public class GameContext {
         player.update(delta);
         boss.update(delta);
 
-        shoot(player);
-        shoot(boss);
-
-        checkCollisions(delta);
-    }
-
-    private void shoot(CharacterContext character) {
-        if (character.getAction() == Action.ATTACK) {
-            List<ProjectileContext> fired = character.shoot();
+        if (player.getAction() == Action.ATTACK) {
+            List<ProjectileContext> fired = ((PlayerLogic) player.logic).shoot();
             if (fired != null) {
                 projectiles.addAll(fired);
             }
         }
+
+        checkCollisions(delta);
     }
 
     public void render(SpriteBatch batch) {

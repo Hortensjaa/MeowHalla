@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.classes.DynamicObject;
 import io.github.meowhalla.classes.GameContext;
-import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.classes.weapons.Weapon;
 import io.github.meowhalla.graphics.CharacterGraphics;
 import io.github.meowhalla.logic.CharacterLogic;
@@ -14,8 +13,6 @@ import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.CharacterState;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
-
-import java.util.List;
 
 public abstract class CharacterContext implements DynamicObject {
     public CharacterState state;
@@ -62,10 +59,6 @@ public abstract class CharacterContext implements DynamicObject {
     public Vector2 rightBorder() {
         return new Vector2(state.getPosition().x + state.getPosition().width,
             state.getPosition().y + state.getPosition().height / 2);
-    }
-
-    public List<ProjectileContext> shoot() {
-        return logic.shoot();
     }
 
     public void updateHp(int val) {
