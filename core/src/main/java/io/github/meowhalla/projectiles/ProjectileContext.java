@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.contexts.DynamicObject;
 import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.contexts.PlayerContext;
 import io.github.meowhalla.graphics.Graphics;
 import io.github.meowhalla.graphics.ProjectileGraphics;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
@@ -25,7 +26,7 @@ public class ProjectileContext implements DynamicObject {
 
     // config values
     protected float power;                      // damage power
-    protected CharacterContext owner;         // reference to character who cast it
+    protected boolean players_projectile;       // avoiding friendly fire
     protected Circle hitbox;                  // current position with hitbox
     protected ProjectileGraphics graphics;
     protected Direction initialDirection;
@@ -50,7 +51,7 @@ public class ProjectileContext implements DynamicObject {
         Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
     ) {
         this.power = config.power();
-        this.owner = owner;
+        players_projectile = owner instanceof PlayerContext;
         this.initialDirection = config.rotateWithPlayer() ? owner.getDirection() : Direction.RIGHT;
 
         movement = movementSupplier.get();

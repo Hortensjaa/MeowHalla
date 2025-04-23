@@ -20,5 +20,13 @@ public class ViewportUtils {
         var g = GameContext.getInstance();
         return g.getViewport().getCamera().position.y - g.getViewport().getWorldHeight() / 2f;
     }
+
+    public static float centerX() {
+        return (left() + right()) / 2;
+    }
+
+    public static float centerY() {
+        return (top() + bottom()) / 2;
+    }
 }
 

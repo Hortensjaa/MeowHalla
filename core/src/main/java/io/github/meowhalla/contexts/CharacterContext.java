@@ -21,8 +21,8 @@ public abstract class CharacterContext implements DynamicObject {
     @Getter protected String name;
     @Getter private final GameContext gameContext;
 
-    public CharacterContext(GameContext gameContext) {
-        this.gameContext = gameContext;
+    public CharacterContext() {
+        this.gameContext = GameContext.getInstance();
     }
 
     public void update(float delta) {

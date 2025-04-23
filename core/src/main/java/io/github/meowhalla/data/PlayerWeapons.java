@@ -48,7 +48,7 @@ public enum PlayerWeapons {
                 0f, 0f),
 
             new ProjectileFactoryBuilder()
-                .config(new ProjectileConfig(0.2f, "weapons/Black And White Ray.png", 5, true))
+                .config(new ProjectileConfig(0.25f, "weapons/Black And White Ray.png", 5, true))
                 .movement(() -> new StraightMovement(new Vector2(800, 0)))
                 .build())
     ),

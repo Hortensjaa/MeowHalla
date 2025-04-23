@@ -40,7 +40,7 @@ public class ComboStepFactory {
     ) {
         return new ComboStep(
             duration,
-            () -> ctx.state.setAction(Action.IDLE),
+            () -> ctx.state.setAction(Action.ATTACK),
             new Consumer<>() {
                 float shootTimer = 0f;
 

@@ -9,7 +9,6 @@ import io.github.meowhalla.projectiles.WeaponContext;
 import io.github.meowhalla.projectiles.base_transformation.FixedOrigin;
 import io.github.meowhalla.projectiles.delay.TimedDelay;
 import io.github.meowhalla.projectiles.movement.StraightMovement;
-import io.github.meowhalla.projectiles.movement.AcceleratedMovement;
 import io.github.meowhalla.projectiles.movement.WindingMovement;
 import io.github.meowhalla.projectiles.transformation.Rotation;
 
@@ -55,16 +54,6 @@ public enum WolfWeapons {
             new ProjectileFactoryBuilder()
                 .config(new ProjectileConfig(60, "weapons/Magic Orb.png", 50, true))
                 .movement(() -> new StraightMovement(400, 0))
-                .build())
-    ),
-
-    MAGIC_RAIN(
-        new Weapon(
-            new WeaponContext("Magic Rain", 0.5f, 2f),
-            new ProjectileFactoryBuilder()
-                .config(new ProjectileConfig(25, "weapons/Magic Orb.png", 10, false))
-                .movement(() -> new AcceleratedMovement(0, -500, 1200))
-                .baseTransformation(() -> new FixedOrigin(ViewportUtils.left(), ViewportUtils.top()))
                 .build())
     ),
 

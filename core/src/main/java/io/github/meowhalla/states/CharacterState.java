@@ -12,7 +12,7 @@ public class CharacterState {
     Action action = Action.IDLE;
     Direction direction = Direction.LEFT;
 
-    public CharacterState(int x, int y, int width, int height) {
+    public CharacterState(float x, float y, float width, float height) {
         position.setX(x);
         position.setY(y);
         position.setWidth(width);

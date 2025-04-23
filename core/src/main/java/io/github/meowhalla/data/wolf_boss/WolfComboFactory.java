@@ -1,7 +1,6 @@
 package io.github.meowhalla.data.wolf_boss;
 
 import io.github.meowhalla.game.GameContext;
-import io.github.meowhalla.game.ViewportUtils;
 import io.github.meowhalla.logic.Combo;
 import io.github.meowhalla.logic.ComboFactory;
 import io.github.meowhalla.logic.ComboStepFactory;
@@ -67,27 +66,10 @@ public class WolfComboFactory implements ComboFactory {
         ));
     }
 
-    public static Combo rainCombo() {
-        Function<ProjectileContext, ProjectileContext> randomizedRainHelper = (ProjectileContext p) -> {
-            Translation t = new Translation(0, 0);
-            double r = Math.random();
-            t.setX((float) (r * ViewportUtils.right()));
-            p.setBaseTransformation(t);
-            return p;
-        };
-
-        return new Combo(List.of(
-            ComboStepFactory.casting(1f, ctx, WolfWeapons.MAGIC_RAIN.data),
-            ComboStepFactory.randomizedFire(5f, ctx, game, 0.1f, randomizedRainHelper),
-            ComboStepFactory.idle(1f, ctx)
-        ));
-    }
-
     private final List<Supplier<Combo>> combos = List.of(
         WolfComboFactory::zigzagCombo,
         WolfComboFactory::volleyCombo,
-        WolfComboFactory::fanOfOrbsCombo,
-        WolfComboFactory::rainCombo
+        WolfComboFactory::fanOfOrbsCombo
     );
     private int lastIndex = 0;
 

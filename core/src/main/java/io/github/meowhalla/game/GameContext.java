@@ -6,10 +6,11 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import io.github.meowhalla.contexts.BossContext;
 import io.github.meowhalla.contexts.DynamicObject;
+import io.github.meowhalla.contexts.EnemyContext;
 import io.github.meowhalla.contexts.PlatformContext;
 import io.github.meowhalla.contexts.PlayerContext;
+import io.github.meowhalla.data.storm.StormContext;
 import io.github.meowhalla.data.wolf_boss.WolfContext;
 import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
@@ -27,7 +28,8 @@ public class GameContext {
     private static GameContext instance;
 
     private final PlayerContext player;
-    private final BossContext boss;
+    private final EnemyContext boss;
+    private final List<EnemyContext> enemies = new ArrayList<>();
     private final List<ProjectileContext> projectiles = new ArrayList<>();
     private final List<PlatformContext> platforms = new ArrayList<>();
     private final OrthographicCamera camera;
@@ -43,7 +45,9 @@ public class GameContext {
         camera.update();
 
         player = new PlayerContext(this);
-        boss = new WolfContext(this);
+        boss = new WolfContext();
+
+        enemies.add(new StormContext());
 
         platforms.add(new PlatformContext(200, 150, 300, 20));
         platforms.add(new PlatformContext(600, 250, 200, 20));
@@ -52,6 +56,7 @@ public class GameContext {
     public void update(float delta) {
         player.update(delta);
         boss.update(delta);
+        for (EnemyContext e : enemies) e.update(delta);
 
         if (player.getAction() == Action.ATTACK) {
             List<ProjectileContext> fired = ((PlayerLogic) player.logic).shoot();
@@ -66,8 +71,9 @@ public class GameContext {
     public void render(SpriteBatch batch) {
         player.render(batch);
         boss.render(batch);
-        for (DynamicObject p : projectiles) p.render(batch);
+        for (ProjectileContext p : projectiles) p.render(batch);
         for (PlatformContext p : platforms) p.render(batch);
+        for (EnemyContext e : enemies) e.render(batch);
     }
 
     public void resize(int width, int height) {
@@ -78,7 +84,7 @@ public class GameContext {
     public void checkCollisions(float delta) {
         Iterator<ProjectileContext> iterator = projectiles.iterator();
         while (iterator.hasNext()) {
-            ProjectileContext p = (ProjectileContext) iterator.next();
+            ProjectileContext p = iterator.next();
             p.update(delta);
 
             if (p.isOffScreen()) {
@@ -88,7 +94,7 @@ public class GameContext {
 
             Circle hitbox = p.getHitbox();
 
-            if (p.getOwner() != player
+            if (!p.isPlayers_projectile()
                 && Intersector.overlaps(hitbox, player.getPosition())
                 && !player.state.isInvincible()) {
                 player.updateHp(-p.getPower());
@@ -97,7 +103,7 @@ public class GameContext {
                 continue;
             }
 
-            if (p.getOwner() != boss && Intersector.overlaps(hitbox, boss.getPosition())) {
+            if (p.isPlayers_projectile() && Intersector.overlaps(hitbox, boss.getPosition())) {
                 boss.updateHp(-p.getPower());
                 iterator.remove();
             }
