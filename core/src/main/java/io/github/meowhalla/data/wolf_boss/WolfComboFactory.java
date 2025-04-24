@@ -36,8 +36,8 @@ public class WolfComboFactory implements ComboFactory {
     public static Combo fanOfOrbsCombo() {
         return new Combo(List.of(
             ComboStepFactory.casting(1f, ctx, WolfWeapons.FAN_OF_ORBS.data),
-            ComboStepFactory.continuousFire(5f, ctx, game, 0.8f),
-            ComboStepFactory.idle(1f, ctx)
+            ComboStepFactory.continuousFire(5f, ctx, game, 1f),
+            ComboStepFactory.idle(3f, ctx)
         ));
     }
 

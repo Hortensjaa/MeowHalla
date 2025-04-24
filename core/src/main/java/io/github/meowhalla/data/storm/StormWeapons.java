@@ -13,7 +13,7 @@ public enum StormWeapons {
         new Weapon(
             new WeaponContext("Heavy Rain", 0.25f, 2f),
             new ProjectileFactoryBuilder()
-                .config(new ProjectileConfig(25, "weapons/Water Orb.png", 10, false))
+                .config(new ProjectileConfig(25, "weapons/Water Orb.png", 5, false))
                 .movement(() -> new AcceleratedMovement(0, -400, 1000))
                 .build())
     );

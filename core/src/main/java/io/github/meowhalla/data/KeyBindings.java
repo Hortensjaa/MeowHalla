@@ -9,7 +9,9 @@ public enum KeyBindings {
     LEFT(Input.Keys.LEFT),
     JUMP(Input.Keys.UP),
     ATTACK(Input.Keys.X),
-    GUARD(Input.Keys.Z);
+    GUARD(Input.Keys.Z),
+    ATTACK_DOWN(Input.Keys.S),
+    ATTACK_UP(Input.Keys.W);
 
     private int keyCode;
 
