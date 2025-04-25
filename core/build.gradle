@@ -7,6 +7,7 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   compileOnly "org.projectlombok:lombok:1.18.30"
   annotationProcessor "org.projectlombok:lombok:1.18.30"
 

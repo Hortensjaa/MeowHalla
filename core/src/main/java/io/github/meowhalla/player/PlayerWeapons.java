@@ -1,4 +1,4 @@
-package io.github.meowhalla.data;
+package io.github.meowhalla.player;
 
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.projectiles.ProjectileConfig;
@@ -41,9 +41,9 @@ public enum PlayerWeapons {
         )
     ),
 
-    RAY_OF_LIGHT(
+    RAY_OF_SUN(
         new Weapon(
-            new WeaponContext("RAY OF LIGHT",
+            new WeaponContext("RAY OF SUN",
                 "Gives you an opportunity to continuously cause damage, with no cooldown.",
                 0f, 0f),
 

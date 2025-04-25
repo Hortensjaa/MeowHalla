@@ -14,6 +14,7 @@ import io.github.meowhalla.data.storm.StormContext;
 import io.github.meowhalla.data.wolf_boss.WolfContext;
 import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
+import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.PlayerState;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class GameContext {
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
-    public GameContext() {
+    public GameContext(Weapon playerWeapon) {
         instance = this;
 
         camera = new OrthographicCamera();
@@ -44,7 +45,7 @@ public class GameContext {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
-        player = new PlayerContext(this);
+        player = new PlayerContext(playerWeapon);
         boss = new WolfContext();
 
         enemies.add(new StormContext());

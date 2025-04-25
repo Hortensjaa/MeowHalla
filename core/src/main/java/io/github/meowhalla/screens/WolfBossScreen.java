@@ -8,15 +8,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.meowhalla.game.GameContext;
+import io.github.meowhalla.projectiles.Weapon;
 
 
-public class FirstScreen implements Screen {
+public class WolfBossScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
     private HUDRenderer hudRenderer;
 
     private GameContext ctx;
     private SpriteBatch batch;
+
+    public WolfBossScreen(Weapon playerWeapon) {
+        ctx = new GameContext(playerWeapon);
+    }
 
     @Override
     public void show() {
@@ -28,7 +33,6 @@ public class FirstScreen implements Screen {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
-        ctx = new GameContext();
         hudRenderer = new HUDRenderer(ctx);
     }
 
