@@ -47,4 +47,12 @@ public class Weapon {
         return new Weapon(weaponContext, transformed);
     }
 
+    public Weapon copy() {
+        List<ProjectileFactory> copiedFactories = new ArrayList<>();
+        for (ProjectileFactory factory : projectileFactories) {
+            copiedFactories.add(factory.copy());
+        }
+        return new Weapon(weaponContext, copiedFactories);
+    }
+
 }

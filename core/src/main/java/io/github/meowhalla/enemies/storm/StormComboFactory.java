@@ -1,4 +1,4 @@
-package io.github.meowhalla.data.storm;
+package io.github.meowhalla.enemies.storm;
 
 import io.github.meowhalla.game.GameContext;
 import io.github.meowhalla.logic.Combo;
@@ -38,7 +38,7 @@ public class StormComboFactory implements ComboFactory {
     }
 
     private final List<Supplier<Combo>> combos = List.of(
-        io.github.meowhalla.data.storm.StormComboFactory::rainCombo
+        StormComboFactory::rainCombo
     );
 
     @Override

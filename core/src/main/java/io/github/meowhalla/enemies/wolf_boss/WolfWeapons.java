@@ -1,4 +1,4 @@
-package io.github.meowhalla.data.wolf_boss;
+package io.github.meowhalla.enemies.wolf_boss;
 
 import com.badlogic.gdx.math.Vector3;
 import io.github.meowhalla.game.ViewportUtils;

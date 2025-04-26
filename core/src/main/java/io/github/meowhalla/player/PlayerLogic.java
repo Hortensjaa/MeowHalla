@@ -2,11 +2,11 @@ package io.github.meowhalla.player;
 
 
 import com.badlogic.gdx.Gdx;
-import io.github.meowhalla.contexts.PlayerContext;
-import io.github.meowhalla.data.KeyBindings;
 import io.github.meowhalla.contexts.CharacterLogic;
+import io.github.meowhalla.contexts.PlayerContext;
+import io.github.meowhalla.settings.KeyBindings;
 import io.github.meowhalla.projectiles.ProjectileContext;
-import io.github.meowhalla.projectiles.transformation.Identity;
+import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.projectiles.transformation.Rotation;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.Direction;
@@ -15,25 +15,31 @@ import io.github.meowhalla.states.PlayerState;
 import java.util.List;
 
 public class PlayerLogic extends CharacterLogic {
+    Weapon weaponCopy;
+    float curRotation = 0f;
 
     public PlayerLogic(PlayerContext ctx, int max_hp) {
         super(ctx, max_hp);
+        weaponCopy = ctx.activeWeapon.copy();
     }
 
     public void update(float delta) {
         boolean left = Gdx.input.isKeyPressed(KeyBindings.LEFT.getKeyCode());
         boolean right = Gdx.input.isKeyPressed(KeyBindings.RIGHT.getKeyCode());
 
-        if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
+        if (Gdx.input.isKeyJustPressed(KeyBindings.ATTACK_DOWN.getKeyCode())) {
+            curRotation = Math.max(curRotation - 45, -90);;
+        } if (Gdx.input.isKeyJustPressed(KeyBindings.ATTACK_UP.getKeyCode())) {
+            curRotation = Math.min(curRotation + 45, 90);
+        } if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
             ctx.state.setAction(Action.ATTACK);
-            if (Gdx.input.isKeyPressed(KeyBindings.ATTACK_DOWN.getKeyCode())) {
-                ctx.activeWeapon = ctx.activeWeapon.transform(() -> new Rotation(-45));
-            } else if (Gdx.input.isKeyPressed(KeyBindings.ATTACK_UP.getKeyCode())) {
-                ctx.activeWeapon = ctx.activeWeapon.transform(() -> new Rotation(45));
+            if (curRotation == 0f) {
+                ctx.activeWeapon = weaponCopy;
             } else {
-                ctx.activeWeapon = ctx.activeWeapon.transform(Identity::new);
+                ctx.activeWeapon = ctx.activeWeapon.transform(() -> new Rotation(curRotation));
             }
-        } else if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
+        }
+        else if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
             ctx.state.setAction(Action.JUMP);
             ctx.physics.jump();
         } else if (left && !right) {

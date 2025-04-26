@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import io.github.meowhalla.contexts.PlatformContext;
 import io.github.meowhalla.contexts.CharacterContext;
-import io.github.meowhalla.data.KeyBindings;
+import io.github.meowhalla.settings.KeyBindings;
 
 
 public class PlayerPhysics extends CharacterPhysics {

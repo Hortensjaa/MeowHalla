@@ -68,4 +68,15 @@ public class ProjectileFactory {
 
         throw new IllegalArgumentException("Unknown strategy type: " + strategy.getClass());
     }
+
+    public ProjectileFactory copy() {
+        return new ProjectileFactory(
+            config,
+            movementSupplier,
+            delaySupplier,
+            transformationSupplier,
+            baseTransformationStrategySupplier
+        );
+    }
+
 }

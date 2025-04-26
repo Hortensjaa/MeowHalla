@@ -18,23 +18,23 @@ public enum PlayerWeapons {
         new Weapon(
             new WeaponContext("PHALANX OF LIGHT",
                 "Not very strong, but quite fast weapon; Sends 3 projectiles on different angles at time.",
-                0.8f, 0.5f),
+                0.5f, 0.5f),
 
             List.of(
                 new ProjectileFactoryBuilder()
                     .config(new ProjectileConfig(10, "weapons/Pure Bolt 2.png", 10, true))
-                    .movement(() -> new StraightMovement(new Vector2(800, 0)))
+                    .movement(() -> new StraightMovement(new Vector2(1200, 0)))
                     .build(),
 
                 new ProjectileFactoryBuilder()
                     .config(new ProjectileConfig(5, "weapons/Pure Bolt 2.png", 7, true))
-                    .movement(() -> new StraightMovement(new Vector2(600, 0)))
+                    .movement(() -> new StraightMovement(new Vector2(1000, 0)))
                     .transformation(() -> new Rotation(30f))
                     .build(),
 
                 new ProjectileFactoryBuilder()
                     .config(new ProjectileConfig(5, "weapons/Pure Bolt 2.png", 7, true))
-                    .movement(() -> new StraightMovement(new Vector2(600, 0)))
+                    .movement(() -> new StraightMovement(new Vector2(1000, 0)))
                     .transformation(() -> new Rotation(-30f))
                     .build()
             )
@@ -49,7 +49,7 @@ public enum PlayerWeapons {
 
             new ProjectileFactoryBuilder()
                 .config(new ProjectileConfig(0.25f, "weapons/Black And White Ray.png", 5, true))
-                .movement(() -> new StraightMovement(new Vector2(800, 0)))
+                .movement(() -> new StraightMovement(new Vector2(1000, 0)))
                 .build())
     ),
 

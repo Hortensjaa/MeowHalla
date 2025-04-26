@@ -1,4 +1,4 @@
-package io.github.meowhalla.data.storm;
+package io.github.meowhalla.enemies.storm;
 
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.contexts.CharacterContext;

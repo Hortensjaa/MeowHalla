@@ -1,4 +1,4 @@
-package io.github.meowhalla.data.wolf_boss;
+package io.github.meowhalla.enemies.wolf_boss;
 
 import io.github.meowhalla.game.GameContext;
 import io.github.meowhalla.logic.Combo;

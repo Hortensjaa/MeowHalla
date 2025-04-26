@@ -1,4 +1,4 @@
-package io.github.meowhalla.data.storm;
+package io.github.meowhalla.enemies.storm;
 
 import io.github.meowhalla.contexts.EnemyContext;
 import io.github.meowhalla.game.ViewportUtils;
