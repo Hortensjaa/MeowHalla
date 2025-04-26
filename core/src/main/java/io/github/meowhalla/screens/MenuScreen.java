@@ -17,16 +17,14 @@ import io.github.meowhalla.player.PlayerWeapons;
 import io.github.meowhalla.projectiles.Weapon;
 
 public class MenuScreen implements Screen {
-    private final Main game;
-    private Stage stage;
-    private Skin skin;
-    private BitmapFont font;
+    private final Stage stage;
+    private final Skin skin;
+    private final BitmapFont font;
     private TextButton startButton;
 
     private Weapon activeWeapon;
 
-    public MenuScreen(Main game) {
-        this.game = game;
+    public MenuScreen() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -108,7 +106,7 @@ public class MenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (activeWeapon != null) {
-                    game.setScreen(new WolfBossScreen(activeWeapon));
+                    Main.getInstance().setScreen(new WolfBossScreen(activeWeapon));
                 }
             }
         });

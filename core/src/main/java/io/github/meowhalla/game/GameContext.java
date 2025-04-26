@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import io.github.meowhalla.Main;
 import io.github.meowhalla.contexts.DynamicObject;
 import io.github.meowhalla.contexts.EnemyContext;
 import io.github.meowhalla.contexts.PlatformContext;
@@ -15,6 +16,8 @@ import io.github.meowhalla.enemies.wolf_boss.WolfContext;
 import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.Weapon;
+import io.github.meowhalla.screens.VictoryScreen;
+import io.github.meowhalla.screens.YouDiedScreen;
 import io.github.meowhalla.states.Action;
 import io.github.meowhalla.states.PlayerState;
 import lombok.Getter;
@@ -58,6 +61,12 @@ public class GameContext {
         player.update(delta);
         boss.update(delta);
         for (EnemyContext e : enemies) e.update(delta);
+
+        if (player.logic.getHp() <= 0f) {
+            Main.getInstance().setScreen(new YouDiedScreen());
+        } else if (boss.logic.getHp() <= 0f) {
+            Main.getInstance().setScreen(new VictoryScreen());
+        }
 
         if (player.getAction() == Action.ATTACK) {
             List<ProjectileContext> fired = ((PlayerLogic) player.logic).shoot();
