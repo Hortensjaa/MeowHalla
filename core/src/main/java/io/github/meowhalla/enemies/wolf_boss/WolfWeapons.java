@@ -3,7 +3,7 @@ package io.github.meowhalla.enemies.wolf_boss;
 import com.badlogic.gdx.math.Vector3;
 import io.github.meowhalla.game.ViewportUtils;
 import io.github.meowhalla.projectiles.ProjectileConfig;
-import io.github.meowhalla.projectiles.ProjectileFactoryBuilder;
+import io.github.meowhalla.projectiles.ProjectileDataBuilder;
 import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.projectiles.WeaponContext;
 import io.github.meowhalla.projectiles.base_transformation.FixedOrigin;
@@ -18,7 +18,7 @@ public enum WolfWeapons {
     MAGIC_ORB_VOLLEY(
         new Weapon(
             new WeaponContext("Magic Orb Volley", 0.75f, 3f),
-            new ProjectileFactoryBuilder()
+            new ProjectileDataBuilder()
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, false))
                 .movement(() -> new StraightMovement(700, 0))
                 .baseTransformation(() -> new FixedOrigin(ViewportUtils.left() + 25, 200))
@@ -36,7 +36,7 @@ public enum WolfWeapons {
     FAN_OF_ORBS(
         new Weapon(
             new WeaponContext("FAN OF ORBS", 1f, 3f),
-            new ProjectileFactoryBuilder()
+            new ProjectileDataBuilder()
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, true))
                 .movement(() -> new StraightMovement(600, 0))
                 .build(),
@@ -51,7 +51,7 @@ public enum WolfWeapons {
     SOLAR_ECLIPSE(
         new Weapon(
             new WeaponContext("SOLAR ECLIPSE", 2f, 2f),
-            new ProjectileFactoryBuilder()
+            new ProjectileDataBuilder()
                 .config(new ProjectileConfig(60, "weapons/Magic Orb.png", 50, true))
                 .movement(() -> new StraightMovement(400, 0))
                 .build())
@@ -60,7 +60,7 @@ public enum WolfWeapons {
     ZIGZAG(
         new Weapon(
             new WeaponContext("ZIGZAG ORB", 0.6f, 2f),
-            new ProjectileFactoryBuilder()
+            new ProjectileDataBuilder()
                 .config(new ProjectileConfig(10, "weapons/Magic Orb.png", 15, false))
                 .movement(() -> new WindingMovement(List.of(
                     new Vector3(-200, 400, 1f),

@@ -11,40 +11,40 @@ import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 
 import java.util.function.Supplier;
 
-public class ProjectileFactoryBuilder {
+public class ProjectileDataBuilder {
     private ProjectileConfig config;
     private Supplier<MovementStrategy> movementSupplier = NoMovement::new;
     private Supplier<DelayStrategy> delaySupplier = NoDelay::new;
     private Supplier<TransformationStrategy> transformationSupplier = Identity::new;
     private Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier = BaseIdentity::new;
 
-    public ProjectileFactoryBuilder config(ProjectileConfig config) {
+    public ProjectileDataBuilder config(ProjectileConfig config) {
         this.config = config;
         return this;
     }
 
-    public ProjectileFactoryBuilder movement(Supplier<MovementStrategy> supplier) {
+    public ProjectileDataBuilder movement(Supplier<MovementStrategy> supplier) {
         this.movementSupplier = supplier;
         return this;
     }
 
-    public ProjectileFactoryBuilder delay(Supplier<DelayStrategy> supplier) {
+    public ProjectileDataBuilder delay(Supplier<DelayStrategy> supplier) {
         this.delaySupplier = supplier;
         return this;
     }
 
-    public ProjectileFactoryBuilder transformation(Supplier<TransformationStrategy> supplier) {
+    public ProjectileDataBuilder transformation(Supplier<TransformationStrategy> supplier) {
         this.transformationSupplier = supplier;
         return this;
     }
 
-    public ProjectileFactoryBuilder baseTransformation(Supplier<BaseTransformationStrategy> supplier) {
+    public ProjectileDataBuilder baseTransformation(Supplier<BaseTransformationStrategy> supplier) {
         this.baseTransformationStrategySupplier = supplier;
         return this;
     }
 
-    public ProjectileFactory build() {
-        return new ProjectileFactory(
+    public ProjectileData build() {
+        return new ProjectileData(
             config,
             movementSupplier,
             delaySupplier,

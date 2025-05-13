@@ -7,25 +7,37 @@ import io.github.meowhalla.projectiles.delay.DelayStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 import io.github.meowhalla.states.Direction;
-import lombok.AllArgsConstructor;
 
 import java.util.function.Supplier;
 
-
-@AllArgsConstructor
 public class ProjectileFactory {
-    private final ProjectileConfig config;
-    private final Supplier<MovementStrategy> movementSupplier;
-    private final Supplier<DelayStrategy> delaySupplier;
-    private final Supplier<TransformationStrategy> transformationSupplier;
-    private final Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier;
+    private static ProjectileFactory instance;
 
-    private Vector2 calculateOrigin(CharacterContext owner) {
+    private ProjectileFactory() {
+        instance = this;
+    }
+
+    public static ProjectileFactory getInstance() {
+        if (instance == null) {
+            instance = new ProjectileFactory();
+        }
+        return instance;
+    }
+
+    private Vector2 calculateOrigin(CharacterContext owner, ProjectileConfig config) {
         Vector2 width = new Vector2(config.radius(), 0);
         return owner.getDirection() == Direction.RIGHT ? owner.rightBorder() : owner.leftBorder().cpy().sub(width);
     }
 
-    private ProjectileContext createProjectileHelper(CharacterContext owner, Vector2 origin) {
+    private ProjectileContext createProjectileHelper(
+        CharacterContext owner,
+        Vector2 origin,
+        ProjectileConfig config,
+        Supplier<MovementStrategy> movementSupplier,
+        Supplier<DelayStrategy> delaySupplier,
+        Supplier<TransformationStrategy> transformationSupplier,
+        Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
+        ) {
         ProjectileContext p = new ProjectileContext(
             origin,
             owner,
@@ -39,38 +51,17 @@ public class ProjectileFactory {
         return p;
     }
 
-    public ProjectileContext createProjectile(CharacterContext owner) {
-        return createProjectileHelper(owner, calculateOrigin(owner));
-    }
-
-    public ProjectileFactory transform(Supplier<Strategy> s) {
-        Strategy strategy = s.get();
-
-        if (strategy instanceof TransformationStrategy) {
-            Supplier<TransformationStrategy> wrapped = () -> (TransformationStrategy) s.get();
-            return new ProjectileFactory(config, movementSupplier, delaySupplier, wrapped, baseTransformationStrategySupplier);
-        }
-
-        if (strategy instanceof BaseTransformationStrategy) {
-            Supplier<BaseTransformationStrategy> wrapped = () -> (BaseTransformationStrategy) s.get();
-            return new ProjectileFactory(config, movementSupplier, delaySupplier, transformationSupplier, wrapped);
-        }
-
-        if (strategy instanceof DelayStrategy) {
-            Supplier<DelayStrategy> wrapped = () -> (DelayStrategy) s.get();
-            return new ProjectileFactory(config, movementSupplier, wrapped, transformationSupplier, baseTransformationStrategySupplier);
-        }
-
-        if (strategy instanceof MovementStrategy) {
-            Supplier<MovementStrategy> wrapped = () -> (MovementStrategy) s.get();
-            return new ProjectileFactory(config, wrapped, delaySupplier, transformationSupplier, baseTransformationStrategySupplier);
-        }
-
-        throw new IllegalArgumentException("Unknown strategy type: " + strategy.getClass());
-    }
-
-    public ProjectileFactory copy() {
-        return new ProjectileFactory(
+    public ProjectileContext createProjectile(
+        CharacterContext owner,
+        ProjectileConfig config,
+        Supplier<MovementStrategy> movementSupplier,
+        Supplier<DelayStrategy> delaySupplier,
+        Supplier<TransformationStrategy> transformationSupplier,
+        Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
+    ) {
+        return createProjectileHelper(
+            owner,
+            calculateOrigin(owner, config),
             config,
             movementSupplier,
             delaySupplier,
@@ -78,5 +69,4 @@ public class ProjectileFactory {
             baseTransformationStrategySupplier
         );
     }
-
 }

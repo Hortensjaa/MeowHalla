@@ -15,41 +15,41 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class Weapon {
     WeaponContext weaponContext;
-    List<ProjectileFactory> projectileFactories;
+    List<ProjectileData> projectileDataList;
 
-    public Weapon(WeaponContext w, ProjectileFactory f) {
+    public Weapon(WeaponContext w, ProjectileData f) {
         this.weaponContext = w;
-        this.projectileFactories = List.of(f);
+        this.projectileDataList = List.of(f);
     }
 
-    public Weapon(WeaponContext w, ProjectileFactory baseFactory, List<TransformationStrategy> transformations) {
+    public Weapon(WeaponContext w, ProjectileData projectileData, List<TransformationStrategy> transformations) {
         this.weaponContext = w;
-        this.projectileFactories = new ArrayList<>();
+        this.projectileDataList = new ArrayList<>();
 
         for (TransformationStrategy t : transformations) {
-            this.projectileFactories.add(baseFactory.transform(() -> (TransformationStrategy) t));
+            this.projectileDataList.add(projectileData.transform(() -> (TransformationStrategy) t));
         }
     }
 
     public List<ProjectileContext> generateProjectiles(CharacterContext ctx) {
         List<ProjectileContext> projectiles = new ArrayList<>();
-        for (ProjectileFactory factory : projectileFactories) {
-            ProjectileContext p = factory.createProjectile(ctx);
+        for (ProjectileData data : projectileDataList) {
+            ProjectileContext p = data.createProjectile(ctx);
             projectiles.add(p);
         }
         return projectiles;
     }
 
     public Weapon transform(Supplier<Strategy> t) {
-        List<ProjectileFactory> transformed = projectileFactories.stream()
+        List<ProjectileData> transformed = projectileDataList.stream()
                 .map(f -> f.transform(t))
                 .collect(Collectors.toList());
         return new Weapon(weaponContext, transformed);
     }
 
     public Weapon copy() {
-        List<ProjectileFactory> copiedFactories = new ArrayList<>();
-        for (ProjectileFactory factory : projectileFactories) {
+        List<ProjectileData> copiedFactories = new ArrayList<>();
+        for (ProjectileData factory : projectileDataList) {
             copiedFactories.add(factory.copy());
         }
         return new Weapon(weaponContext, copiedFactories);
