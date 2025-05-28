@@ -106,7 +106,7 @@ public class MenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (activeWeapon != null) {
-                    Main.getInstance().setScreen(new WolfBossScreen(activeWeapon));
+                    Main.getInstance().setScreen(new GameScreen(activeWeapon));
                 }
             }
         });

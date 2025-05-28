@@ -18,7 +18,7 @@ public enum PlayerWeapons {
         new Weapon(
             new WeaponContext("PHALANX OF LIGHT",
                 "Not very strong, but quite fast weapon; Sends 3 projectiles on different angles at time.",
-                0.5f, 0.5f),
+                0.5f),
 
             List.of(
                 new ProjectileDataBuilder()
@@ -45,7 +45,7 @@ public enum PlayerWeapons {
         new Weapon(
             new WeaponContext("RAY OF SUN",
                 "Gives you an opportunity to continuously cause damage, with no cooldown.",
-                0f, 0f),
+                0f),
 
             new ProjectileDataBuilder()
                 .config(new ProjectileConfig(0.25f, "weapons/Black And White Ray.png", 5, true))
@@ -57,7 +57,7 @@ public enum PlayerWeapons {
         new Weapon(
             new WeaponContext("LUNAR ECLIPSE",
                 "Deals a lot of damage, but also takes a lot of energy to cast; needs long cooldown.",
-                2f, 2f),
+                2f),
 
             new ProjectileDataBuilder()
                 .config(new ProjectileConfig(50f, "weapons/Bolt Of Purity.png", 30, true))

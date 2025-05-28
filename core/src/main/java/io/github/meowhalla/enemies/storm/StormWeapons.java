@@ -11,7 +11,7 @@ public enum StormWeapons {
 
     HEAVY_RAIN(
         new Weapon(
-            new WeaponContext("Heavy Rain", 0.25f, 2f),
+            new WeaponContext("Heavy Rain", 0.25f),
             new ProjectileDataBuilder()
                 .config(new ProjectileConfig(25, "weapons/Water Orb.png", 5, false))
                 .movement(() -> new AcceleratedMovement(0, -400, 1000))

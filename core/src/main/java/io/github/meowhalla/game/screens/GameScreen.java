@@ -11,7 +11,7 @@ import io.github.meowhalla.game.GameContext;
 import io.github.meowhalla.projectiles.Weapon;
 
 
-public class WolfBossScreen implements Screen {
+public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
     private HUDRenderer hudRenderer;
@@ -19,7 +19,7 @@ public class WolfBossScreen implements Screen {
     private GameContext ctx;
     private SpriteBatch batch;
 
-    public WolfBossScreen(Weapon playerWeapon) {
+    public GameScreen(Weapon playerWeapon) {
         ctx = new GameContext(playerWeapon);
     }
 

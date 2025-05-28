@@ -17,7 +17,7 @@ import java.util.List;
 public enum WolfWeapons {
     MAGIC_ORB_VOLLEY(
         new Weapon(
-            new WeaponContext("Magic Orb Volley", 0.75f, 3f),
+            new WeaponContext("Magic Orb Volley", 0.75f),
             new ProjectileDataBuilder()
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, false))
                 .movement(() -> new StraightMovement(700, 0))
@@ -35,7 +35,7 @@ public enum WolfWeapons {
 
     FAN_OF_ORBS(
         new Weapon(
-            new WeaponContext("FAN OF ORBS", 1f, 3f),
+            new WeaponContext("FAN OF ORBS", 1f),
             new ProjectileDataBuilder()
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, true))
                 .movement(() -> new StraightMovement(600, 0))
@@ -50,7 +50,7 @@ public enum WolfWeapons {
 
     SOLAR_ECLIPSE(
         new Weapon(
-            new WeaponContext("SOLAR ECLIPSE", 2f, 2f),
+            new WeaponContext("SOLAR ECLIPSE", 2f),
             new ProjectileDataBuilder()
                 .config(new ProjectileConfig(60, "weapons/Magic Orb.png", 50, true))
                 .movement(() -> new StraightMovement(400, 0))
@@ -59,7 +59,7 @@ public enum WolfWeapons {
 
     ZIGZAG(
         new Weapon(
-            new WeaponContext("ZIGZAG ORB", 0.6f, 2f),
+            new WeaponContext("ZIGZAG ORB", 0.6f),
             new ProjectileDataBuilder()
                 .config(new ProjectileConfig(10, "weapons/Magic Orb.png", 15, false))
                 .movement(() -> new WindingMovement(List.of(
