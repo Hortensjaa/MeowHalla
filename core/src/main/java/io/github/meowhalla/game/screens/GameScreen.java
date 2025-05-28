@@ -16,7 +16,7 @@ public class GameScreen implements Screen {
     private Viewport viewport;
     private HUDRenderer hudRenderer;
 
-    private GameContext ctx;
+    private final GameContext ctx;
     private SpriteBatch batch;
 
     public GameScreen(Weapon playerWeapon) {
