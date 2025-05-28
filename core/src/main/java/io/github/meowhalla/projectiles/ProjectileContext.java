@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.contexts.DynamicObject;
 import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.contexts.DynamicObject;
 import io.github.meowhalla.contexts.PlayerContext;
-import io.github.meowhalla.graphics.Graphics;
 import io.github.meowhalla.graphics.ProjectileGraphics;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
-import io.github.meowhalla.projectiles.delay.DelayStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
+import io.github.meowhalla.projectiles.state.ProjectileState;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 import io.github.meowhalla.states.Direction;
 import lombok.Getter;
@@ -25,28 +24,30 @@ import java.util.function.Supplier;
 public class ProjectileContext implements DynamicObject {
 
     // config values
-    protected float power;                      // damage power
-    protected boolean players_projectile;       // avoiding friendly fire
+    protected float power;                    // damage power
+    protected boolean players_projectile;     // avoiding friendly fire
     protected Circle hitbox;                  // current position with hitbox
-    protected ProjectileGraphics graphics;
     protected Direction initialDirection;
-    protected Graphics waitingFrames;
+
+    protected ProjectileGraphics chargingFrames;
+    protected ProjectileGraphics activeFrames;
+    protected ProjectileGraphics destroyingFrames;
 
     // behavior
-    DelayStrategy delay;
     MovementStrategy movement;
     TransformationStrategy transformation;
     BaseTransformationStrategy baseTransformation;
 
     // state
     protected float timeSinceSpawn = 0f;
+    protected ProjectileState state;
 
     public ProjectileContext(
         Vector2 origin,
         CharacterContext owner,
         ProjectileConfig config,
+        Supplier<ProjectileState> stateSupplier,
         Supplier<MovementStrategy> movementSupplier,
-        Supplier<DelayStrategy> delaySupplier,
         Supplier<TransformationStrategy> transformationSupplier,
         Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
     ) {
@@ -56,15 +57,16 @@ public class ProjectileContext implements DynamicObject {
 
         movement = movementSupplier.get();
 
-        delay = delaySupplier.get();
-        waitingFrames = new ProjectileGraphics(this, delay.waitingFramesFilename());
+        state = stateSupplier.get();
+        chargingFrames = new ProjectileGraphics(this, state.chargingFramesFilename());
+        destroyingFrames = new ProjectileGraphics(this, state.destroyFramesFilename());
 
         transformation = transformationSupplier.get();
 
         baseTransformation = baseTransformationStrategySupplier.get();
         this.hitbox = new Circle(baseTransformation.apply(origin), config.radius());
 
-        graphics = new ProjectileGraphics(this, config.fileName());
+        activeFrames = new ProjectileGraphics(this, config.fileName());
     }
 
     public void setBaseTransformation(BaseTransformationStrategy newBaseTransformation) {
@@ -74,7 +76,7 @@ public class ProjectileContext implements DynamicObject {
 
     public void update(float delta) {
         timeSinceSpawn += delta;
-        if (delay.isReady(timeSinceSpawn)) {
+        if (state.isReady(timeSinceSpawn)) {
             Vector2 v = new Vector2(movement.update(this, delta));
             v = transformation.apply(v);
             v = initialDirection == Direction.RIGHT ? v : new Vector2(-v.x, v.y);
@@ -82,11 +84,17 @@ public class ProjectileContext implements DynamicObject {
         }
     }
 
+    public boolean timeToDestroy() {
+        return state.isDestroyed(timeSinceSpawn);
+    }
+
     public void render(SpriteBatch batch) {
-        if (delay.isReady(timeSinceSpawn)) {
-            graphics.render(batch);
+        if (!state.isReady(timeSinceSpawn)) {
+            chargingFrames.render(batch);
+        } else if (state.isDestroying(timeSinceSpawn)) {
+            destroyingFrames.render(batch);
         } else {
-            waitingFrames.render(batch);
+            activeFrames.render(batch);
         }
     }
 
@@ -98,7 +106,9 @@ public class ProjectileContext implements DynamicObject {
     }
 
     public void dispose() {
-        graphics.dispose();
+        chargingFrames.dispose();
+        activeFrames.dispose();
+        destroyingFrames.dispose();
     }
 }
 

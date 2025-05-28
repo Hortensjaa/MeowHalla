@@ -7,9 +7,9 @@ import io.github.meowhalla.projectiles.ProjectileDataBuilder;
 import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.projectiles.WeaponContext;
 import io.github.meowhalla.projectiles.base_transformation.FixedOrigin;
-import io.github.meowhalla.projectiles.delay.TimedDelay;
 import io.github.meowhalla.projectiles.movement.StraightMovement;
 import io.github.meowhalla.projectiles.movement.WindingMovement;
+import io.github.meowhalla.projectiles.state.DelayedActivationState;
 import io.github.meowhalla.projectiles.transformation.Rotation;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public enum WolfWeapons {
                 .config(new ProjectileConfig(30, "weapons/Magic Orb.png", 25, false))
                 .movement(() -> new StraightMovement(700, 0))
                 .baseTransformation(() -> new FixedOrigin(ViewportUtils.left() + 25, 200))
-                .delay(() -> new TimedDelay(0.5f, "weapons/Magic Sparks.png"))
+                .state(() -> new DelayedActivationState(0.5f, "weapons/Magic Sparks.png"))
                 .build()
         )
     ),

@@ -3,8 +3,8 @@ package io.github.meowhalla.projectiles;
 import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.contexts.CharacterContext;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
-import io.github.meowhalla.projectiles.delay.DelayStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
+import io.github.meowhalla.projectiles.state.ProjectileState;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 import io.github.meowhalla.states.Direction;
 
@@ -34,7 +34,7 @@ public class ProjectileFactory {
         Vector2 origin,
         ProjectileConfig config,
         Supplier<MovementStrategy> movementSupplier,
-        Supplier<DelayStrategy> delaySupplier,
+        Supplier<ProjectileState> stateSupplier,
         Supplier<TransformationStrategy> transformationSupplier,
         Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
         ) {
@@ -42,8 +42,8 @@ public class ProjectileFactory {
             origin,
             owner,
             config,
+            stateSupplier,
             movementSupplier,
-            delaySupplier,
             transformationSupplier,
             baseTransformationStrategySupplier
         );
@@ -55,7 +55,7 @@ public class ProjectileFactory {
         CharacterContext owner,
         ProjectileConfig config,
         Supplier<MovementStrategy> movementSupplier,
-        Supplier<DelayStrategy> delaySupplier,
+        Supplier<ProjectileState> stateSupplier,
         Supplier<TransformationStrategy> transformationSupplier,
         Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier
     ) {
@@ -64,7 +64,7 @@ public class ProjectileFactory {
             calculateOrigin(owner, config),
             config,
             movementSupplier,
-            delaySupplier,
+            stateSupplier,
             transformationSupplier,
             baseTransformationStrategySupplier
         );

@@ -2,10 +2,10 @@ package io.github.meowhalla.projectiles;
 
 import io.github.meowhalla.projectiles.base_transformation.BaseIdentity;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
-import io.github.meowhalla.projectiles.delay.DelayStrategy;
-import io.github.meowhalla.projectiles.delay.NoDelay;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
 import io.github.meowhalla.projectiles.movement.NoMovement;
+import io.github.meowhalla.projectiles.state.NoDelayNoDestroyState;
+import io.github.meowhalla.projectiles.state.ProjectileState;
 import io.github.meowhalla.projectiles.transformation.Identity;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 
@@ -13,8 +13,8 @@ import java.util.function.Supplier;
 
 public class ProjectileDataBuilder {
     private ProjectileConfig config;
+    private Supplier<ProjectileState> stateSupplier = NoDelayNoDestroyState::new;
     private Supplier<MovementStrategy> movementSupplier = NoMovement::new;
-    private Supplier<DelayStrategy> delaySupplier = NoDelay::new;
     private Supplier<TransformationStrategy> transformationSupplier = Identity::new;
     private Supplier<BaseTransformationStrategy> baseTransformationStrategySupplier = BaseIdentity::new;
 
@@ -28,8 +28,8 @@ public class ProjectileDataBuilder {
         return this;
     }
 
-    public ProjectileDataBuilder delay(Supplier<DelayStrategy> supplier) {
-        this.delaySupplier = supplier;
+    public ProjectileDataBuilder state(Supplier<ProjectileState> supplier) {
+        this.stateSupplier = supplier;
         return this;
     }
 
@@ -47,7 +47,7 @@ public class ProjectileDataBuilder {
         return new ProjectileData(
             config,
             movementSupplier,
-            delaySupplier,
+            stateSupplier,
             transformationSupplier,
             baseTransformationStrategySupplier
         );
