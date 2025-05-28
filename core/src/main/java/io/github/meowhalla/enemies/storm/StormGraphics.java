@@ -1,9 +1,9 @@
 package io.github.meowhalla.enemies.storm;
 
-import io.github.meowhalla.contexts.CharacterContext;
-import io.github.meowhalla.graphics.AnimationSet;
-import io.github.meowhalla.graphics.CharacterGraphics;
-import io.github.meowhalla.states.Action;
+import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.graphics.AnimationSet;
+import io.github.meowhalla.structure.graphics.CharacterGraphics;
+import io.github.meowhalla.structure.states.Action;
 
 public class StormGraphics extends CharacterGraphics {
 

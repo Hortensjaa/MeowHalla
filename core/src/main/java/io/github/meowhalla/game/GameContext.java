@@ -7,19 +7,19 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.meowhalla.Main;
-import io.github.meowhalla.contexts.DynamicObject;
-import io.github.meowhalla.contexts.EnemyContext;
-import io.github.meowhalla.contexts.PlatformContext;
-import io.github.meowhalla.contexts.PlayerContext;
+import io.github.meowhalla.structure.contexts.DynamicObject;
+import io.github.meowhalla.enemies.EnemyContext;
+import io.github.meowhalla.items.PlatformContext;
+import io.github.meowhalla.player.PlayerContext;
 import io.github.meowhalla.enemies.storm.StormContext;
 import io.github.meowhalla.enemies.wolf_boss.WolfContext;
 import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.Weapon;
-import io.github.meowhalla.screens.VictoryScreen;
-import io.github.meowhalla.screens.YouDiedScreen;
-import io.github.meowhalla.states.Action;
-import io.github.meowhalla.states.PlayerState;
+import io.github.meowhalla.game.screens.VictoryScreen;
+import io.github.meowhalla.game.screens.YouDiedScreen;
+import io.github.meowhalla.structure.states.Action;
+import io.github.meowhalla.player.PlayerState;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class GameContext {
             ProjectileContext p = iterator.next();
             p.update(delta);
 
-            if (p.isOffScreen()) {
+            if (p.isOffScreen() || p.timeToDestroy()) {
                 iterator.remove();
                 continue;
             }

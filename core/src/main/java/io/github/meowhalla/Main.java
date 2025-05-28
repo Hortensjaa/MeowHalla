@@ -1,7 +1,7 @@
 package io.github.meowhalla;
 
 import com.badlogic.gdx.Game;
-import io.github.meowhalla.screens.MenuScreen;
+import io.github.meowhalla.game.screens.MenuScreen;
 import lombok.Getter;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */

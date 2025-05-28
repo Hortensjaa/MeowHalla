@@ -1,9 +1,9 @@
 package io.github.meowhalla.enemies.storm;
 
-import io.github.meowhalla.contexts.EnemyContext;
+import io.github.meowhalla.enemies.EnemyContext;
 import io.github.meowhalla.game.ViewportUtils;
-import io.github.meowhalla.logic.EnemyLogic;
-import io.github.meowhalla.states.EnemyState;
+import io.github.meowhalla.enemies.EnemyLogic;
+import io.github.meowhalla.enemies.EnemyState;
 
 public class StormContext extends EnemyContext {
 

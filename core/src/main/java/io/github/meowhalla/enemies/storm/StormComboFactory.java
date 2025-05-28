@@ -1,9 +1,9 @@
 package io.github.meowhalla.enemies.storm;
 
 import io.github.meowhalla.game.GameContext;
-import io.github.meowhalla.logic.Combo;
-import io.github.meowhalla.logic.ComboFactory;
-import io.github.meowhalla.logic.ComboStepFactory;
+import io.github.meowhalla.structure.logic.Combo;
+import io.github.meowhalla.structure.logic.ComboFactory;
+import io.github.meowhalla.structure.logic.ComboStepFactory;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.base_transformation.Translation;
 

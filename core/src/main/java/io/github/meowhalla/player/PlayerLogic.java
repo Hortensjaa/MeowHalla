@@ -2,15 +2,13 @@ package io.github.meowhalla.player;
 
 
 import com.badlogic.gdx.Gdx;
-import io.github.meowhalla.contexts.CharacterLogic;
-import io.github.meowhalla.contexts.PlayerContext;
-import io.github.meowhalla.settings.KeyBindings;
+import io.github.meowhalla.structure.contexts.CharacterLogic;
+import io.github.meowhalla.game.settings.KeyBindings;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.Weapon;
 import io.github.meowhalla.projectiles.transformation.Rotation;
-import io.github.meowhalla.states.Action;
-import io.github.meowhalla.states.Direction;
-import io.github.meowhalla.states.PlayerState;
+import io.github.meowhalla.structure.states.Action;
+import io.github.meowhalla.structure.states.Direction;
 
 import java.util.List;
 

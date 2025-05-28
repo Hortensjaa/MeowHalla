@@ -1,9 +1,9 @@
 package io.github.meowhalla.enemies.storm;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.structure.contexts.CharacterContext;
 import io.github.meowhalla.game.ViewportUtils;
-import io.github.meowhalla.physics.EnemyPhysics;
+import io.github.meowhalla.enemies.EnemyPhysics;
 
 public class StormPhysics extends EnemyPhysics {
     Vector2 velocity = new Vector2(1, 0);

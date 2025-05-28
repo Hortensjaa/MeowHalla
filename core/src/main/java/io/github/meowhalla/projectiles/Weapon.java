@@ -1,6 +1,6 @@
 package io.github.meowhalla.projectiles;
 
-import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.structure.contexts.CharacterContext;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

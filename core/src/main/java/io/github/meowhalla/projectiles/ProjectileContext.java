@@ -4,15 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.contexts.CharacterContext;
-import io.github.meowhalla.contexts.DynamicObject;
-import io.github.meowhalla.contexts.PlayerContext;
-import io.github.meowhalla.graphics.ProjectileGraphics;
+import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.contexts.DynamicObject;
+import io.github.meowhalla.player.PlayerContext;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
 import io.github.meowhalla.projectiles.state.ProjectileState;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
-import io.github.meowhalla.states.Direction;
+import io.github.meowhalla.structure.states.Direction;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -96,6 +95,26 @@ public class ProjectileContext implements DynamicObject {
         } else {
             activeFrames.render(batch);
         }
+    }
+
+    @Override
+    public float getX() {
+        return getHitbox().x;
+    }
+
+    @Override
+    public float getY() {
+        return getHitbox().y;
+    }
+
+    @Override
+    public float getWidth() {
+        return 2 * getHitbox().radius;
+    }
+
+    @Override
+    public float getHeight() {
+        return getWidth();
     }
 
     public boolean isOffScreen() {

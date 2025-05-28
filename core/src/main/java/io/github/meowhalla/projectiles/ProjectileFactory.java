@@ -1,12 +1,12 @@
 package io.github.meowhalla.projectiles;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.contexts.CharacterContext;
+import io.github.meowhalla.structure.contexts.CharacterContext;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
 import io.github.meowhalla.projectiles.state.ProjectileState;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
-import io.github.meowhalla.states.Direction;
+import io.github.meowhalla.structure.states.Direction;
 
 import java.util.function.Supplier;
 
