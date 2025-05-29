@@ -27,13 +27,37 @@ public class ProjectileData {
         Strategy strategy = s.get();
 
         if (strategy instanceof TransformationStrategy) {
+            TransformationStrategy newTransformation = (TransformationStrategy) s.get();
+
+            if (transformationSupplier != null) {
+                TransformationStrategy existingTransformation = transformationSupplier.get();
+                Supplier<TransformationStrategy> compositeSupplier =
+                    () -> vector -> newTransformation.apply(existingTransformation.apply(vector));
+
+                return new ProjectileData(config, movementSupplier, stateSupplier,
+                    compositeSupplier, baseTransformationStrategySupplier);
+            }
+
             Supplier<TransformationStrategy> wrapped = () -> (TransformationStrategy) s.get();
-            return new ProjectileData(config, movementSupplier, stateSupplier, wrapped, baseTransformationStrategySupplier);
+            return new ProjectileData(config, movementSupplier, stateSupplier,
+                wrapped, baseTransformationStrategySupplier);
         }
 
         if (strategy instanceof BaseTransformationStrategy) {
+            if (baseTransformationStrategySupplier != null) {
+                Supplier<BaseTransformationStrategy> compositeSupplier = () -> {
+                    BaseTransformationStrategy existing = baseTransformationStrategySupplier.get();
+                    BaseTransformationStrategy newTrans = (BaseTransformationStrategy) s.get();
+                   return vector -> newTrans.apply(existing.apply(vector));
+                };
+
+                return new ProjectileData(config, movementSupplier, stateSupplier,
+                    transformationSupplier, compositeSupplier);
+            }
+
             Supplier<BaseTransformationStrategy> wrapped = () -> (BaseTransformationStrategy) s.get();
-            return new ProjectileData(config, movementSupplier, stateSupplier, transformationSupplier, wrapped);
+            return new ProjectileData(config, movementSupplier, stateSupplier,
+                transformationSupplier, wrapped);
         }
 
         if (strategy instanceof ProjectileState) {

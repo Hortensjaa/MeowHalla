@@ -23,8 +23,7 @@ public class ProjectileFactory {
         return instance;
     }
 
-    private Vector2 calculateOrigin(CharacterContext owner, ProjectileConfig config) {
-        Vector2 width = new Vector2(config.radius(), 0);
+    private Vector2 calculateOrigin(CharacterContext owner) {
         return owner.getCenter();
     }
 
@@ -60,7 +59,7 @@ public class ProjectileFactory {
     ) {
         return createProjectileHelper(
             owner,
-            calculateOrigin(owner, config),
+            calculateOrigin(owner),
             config,
             movementSupplier,
             stateSupplier,

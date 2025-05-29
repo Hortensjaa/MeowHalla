@@ -8,8 +8,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.meowhalla.Main;
 import io.github.meowhalla.enemies.EnemyContext;
-import io.github.meowhalla.enemies.mocktopus.MocktopusContext;
 import io.github.meowhalla.enemies.storm.StormContext;
+import io.github.meowhalla.enemies.wolf_boss.WolfContext;
 import io.github.meowhalla.game.screens.VictoryScreen;
 import io.github.meowhalla.game.screens.YouDiedScreen;
 import io.github.meowhalla.items.PlatformContext;
@@ -49,7 +49,7 @@ public class GameContext {
         camera.update();
 
         player = new PlayerContext(playerWeapon);
-        boss = new MocktopusContext();
+        boss = new WolfContext();
 
         enemies.add(new StormContext());
 

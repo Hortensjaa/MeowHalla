@@ -26,7 +26,7 @@ public class PlayerLogic extends CharacterLogic {
         boolean right = Gdx.input.isKeyPressed(KeyBindings.RIGHT.getKeyCode());
 
         if (Gdx.input.isKeyJustPressed(KeyBindings.ATTACK_DOWN.getKeyCode())) {
-            curRotation = Math.max(curRotation - 45, -90);;
+            curRotation = Math.max(curRotation - 45, -90);
         } if (Gdx.input.isKeyJustPressed(KeyBindings.ATTACK_UP.getKeyCode())) {
             curRotation = Math.min(curRotation + 45, 90);
         } if (Gdx.input.isKeyPressed(KeyBindings.ATTACK.getKeyCode())) {
@@ -34,7 +34,7 @@ public class PlayerLogic extends CharacterLogic {
             if (curRotation == 0f) {
                 ctx.activeWeapon = weaponCopy;
             } else {
-                ctx.activeWeapon = ctx.activeWeapon.transform(() -> new Rotation(curRotation));
+                ctx.activeWeapon = weaponCopy.transform(() -> new Rotation(curRotation));
             }
         }
         else if (Gdx.input.isKeyPressed(KeyBindings.JUMP.getKeyCode())) {
