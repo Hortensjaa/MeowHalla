@@ -2,7 +2,7 @@ package io.github.meowhalla.player;
 
 
 import com.badlogic.gdx.Gdx;
-import io.github.meowhalla.structure.contexts.CharacterLogic;
+import io.github.meowhalla.structure.character.CharacterLogic;
 import io.github.meowhalla.game.settings.KeyBindings;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.Weapon;

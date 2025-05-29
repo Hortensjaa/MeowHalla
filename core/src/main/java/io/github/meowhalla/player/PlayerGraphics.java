@@ -1,7 +1,7 @@
 package io.github.meowhalla.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.structure.graphics.AnimationSet;
 import io.github.meowhalla.structure.graphics.CharacterGraphics;
 import io.github.meowhalla.structure.states.Action;

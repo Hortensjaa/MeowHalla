@@ -1,4 +1,4 @@
-package io.github.meowhalla.structure.contexts;
+package io.github.meowhalla.structure.character;
 
 import lombok.Getter;
 import lombok.Setter;

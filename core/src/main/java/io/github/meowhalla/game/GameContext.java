@@ -18,7 +18,7 @@ import io.github.meowhalla.player.PlayerLogic;
 import io.github.meowhalla.player.PlayerState;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.Weapon;
-import io.github.meowhalla.structure.contexts.DynamicObject;
+import io.github.meowhalla.structure.DynamicObject;
 import io.github.meowhalla.structure.states.Action;
 import lombok.Getter;
 
@@ -105,7 +105,7 @@ public class GameContext {
             Circle hitbox = p.getHitbox();
 
             if (!p.isPlayers_projectile()
-                && Intersector.overlaps(hitbox, player.getPosition())
+                && Intersector.overlaps(hitbox, player.getRectangle())
                 && !player.state.isInvincible()) {
                 player.updateHp(-p.getPower());
                 ((PlayerState) player.state).resetNoHitTime();
@@ -113,7 +113,7 @@ public class GameContext {
                 continue;
             }
 
-            if (p.isPlayers_projectile() && Intersector.overlaps(hitbox, boss.getPosition())) {
+            if (p.isPlayers_projectile() && Intersector.overlaps(hitbox, boss.getRectangle())) {
                 boss.updateHp(-p.getPower());
                 iterator.remove();
             }

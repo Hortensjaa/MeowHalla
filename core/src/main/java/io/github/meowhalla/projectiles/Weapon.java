@@ -1,6 +1,6 @@
 package io.github.meowhalla.projectiles;
 
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.projectiles.transformation.TransformationStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,11 +48,11 @@ public class Weapon {
     }
 
     public Weapon copy() {
-        List<ProjectileData> copiedFactories = new ArrayList<>();
-        for (ProjectileData factory : projectileDataList) {
-            copiedFactories.add(factory.copy());
+        List<ProjectileData> copiedData = new ArrayList<>();
+        for (ProjectileData d : projectileDataList) {
+            copiedData.add(d.copy());
         }
-        return new Weapon(weaponContext, copiedFactories);
+        return new Weapon(weaponContext, copiedData);
     }
 
 }

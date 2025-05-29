@@ -2,7 +2,7 @@ package io.github.meowhalla.items;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import io.github.meowhalla.structure.contexts.DynamicObject;
+import io.github.meowhalla.structure.DynamicObject;
 import lombok.Getter;
 
 @Getter
@@ -48,6 +48,26 @@ public class PlatformContext implements DynamicObject {
     @Override
     public float getHeight() {
         return bounds.height;
+    }
+
+    @Override
+    public void setX(float v) {
+        bounds.x = v;
+    }
+
+    @Override
+    public void setY(float v) {
+        bounds.y = v;
+    }
+
+    @Override
+    public void setWidth(float v) {
+        bounds.width = v;
+    }
+
+    @Override
+    public void setHeight(float v) {
+        bounds.height = v;
     }
 }
 

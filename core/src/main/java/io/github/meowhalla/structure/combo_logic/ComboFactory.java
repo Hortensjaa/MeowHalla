@@ -1,4 +1,4 @@
-package io.github.meowhalla.structure.logic;
+package io.github.meowhalla.structure.combo_logic;
 
 public interface ComboFactory {
     public Combo getNext();

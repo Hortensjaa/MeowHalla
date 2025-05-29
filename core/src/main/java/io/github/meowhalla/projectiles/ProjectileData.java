@@ -1,6 +1,6 @@
 package io.github.meowhalla.projectiles;
 
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
 import io.github.meowhalla.projectiles.state.ProjectileState;

@@ -1,6 +1,6 @@
 package io.github.meowhalla.enemies;
 
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.structure.physics.CharacterPhysics;
 import lombok.Getter;
 import lombok.Setter;

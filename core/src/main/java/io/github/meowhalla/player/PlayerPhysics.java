@@ -3,7 +3,7 @@ package io.github.meowhalla.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import io.github.meowhalla.items.PlatformContext;
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.structure.physics.CharacterPhysics;
 import io.github.meowhalla.game.settings.KeyBindings;
 
@@ -16,7 +16,7 @@ public class PlayerPhysics extends CharacterPhysics {
 
     public void update(float delta) {
         float worldWidth = ctx.getGameContext().getViewport().getWorldWidth();
-        Rectangle rect = ctx.state.getPosition();
+        Rectangle rect = ctx.getRectangle();
 
         if (!Gdx.input.isKeyPressed(KeyBindings.LEFT.getKeyCode()) &&
             !Gdx.input.isKeyPressed(KeyBindings.RIGHT.getKeyCode())) {

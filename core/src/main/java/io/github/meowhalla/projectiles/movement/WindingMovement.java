@@ -2,7 +2,7 @@ package io.github.meowhalla.projectiles.movement;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import io.github.meowhalla.projectiles.ProjectileContext;
+import io.github.meowhalla.structure.DynamicObject;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class WindingMovement implements MovementStrategy {
     }
 
     @Override
-    public Vector2 update(ProjectileContext p, float delta) {
+    public Vector2 update(DynamicObject p, float delta) {
         timeSinceChange += delta;
         if (timeSinceChange > vectors.get(currentId).z) {
             currentId = (currentId + 1) % vectors.size();

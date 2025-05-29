@@ -1,9 +1,9 @@
 package io.github.meowhalla.enemies.mocktopus;
 
 import io.github.meowhalla.game.GameContext;
-import io.github.meowhalla.structure.logic.Combo;
-import io.github.meowhalla.structure.logic.ComboFactory;
-import io.github.meowhalla.structure.logic.ComboStepFactory;
+import io.github.meowhalla.structure.combo_logic.Combo;
+import io.github.meowhalla.structure.combo_logic.ComboFactory;
+import io.github.meowhalla.structure.combo_logic.ComboStepFactory;
 
 import java.util.List;
 import java.util.function.Supplier;

@@ -1,4 +1,4 @@
-package io.github.meowhalla.structure.logic;
+package io.github.meowhalla.structure.combo_logic;
 
 import lombok.Getter;
 

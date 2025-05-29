@@ -1,10 +1,10 @@
-package io.github.meowhalla.structure.contexts;
+package io.github.meowhalla.structure.character;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import io.github.meowhalla.game.GameContext;
 import io.github.meowhalla.projectiles.Weapon;
+import io.github.meowhalla.structure.DynamicObject;
 import io.github.meowhalla.structure.graphics.CharacterGraphics;
 import io.github.meowhalla.structure.physics.CharacterPhysics;
 import io.github.meowhalla.structure.states.Action;
@@ -41,7 +41,6 @@ public abstract class CharacterContext implements DynamicObject {
         graphics.dispose();
     }
 
-
     @Override
     public float getX() {
         return state.getPosition().x;
@@ -62,7 +61,27 @@ public abstract class CharacterContext implements DynamicObject {
         return state.getPosition().height;
     }
 
-    public Rectangle getPosition() {
+    @Override
+    public void setX(float v) {
+        state.getPosition().x = v;
+    }
+
+    @Override
+    public void setY(float v) {
+        state.getPosition().y = v;
+    }
+
+    @Override
+    public void setWidth(float v) {
+        state.getPosition().width = v;
+    }
+
+    @Override
+    public void setHeight(float v) {
+        state.getPosition().height = v;
+    }
+
+    public Rectangle getRectangle() {
         return state.getPosition();
     }
 
@@ -72,15 +91,6 @@ public abstract class CharacterContext implements DynamicObject {
 
     public Direction getDirection() {
         return state.getDirection();
-    }
-
-    public Vector2 leftBorder() {
-        return new Vector2(state.getPosition().x, state.getPosition().y + state.getPosition().height / 2);
-    }
-
-    public Vector2 rightBorder() {
-        return new Vector2(state.getPosition().x + state.getPosition().width,
-            state.getPosition().y + state.getPosition().height / 2);
     }
 
     public void updateHp(float val) {

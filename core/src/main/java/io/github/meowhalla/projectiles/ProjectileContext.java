@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.structure.contexts.CharacterContext;
-import io.github.meowhalla.structure.contexts.DynamicObject;
+import io.github.meowhalla.structure.character.CharacterContext;
+import io.github.meowhalla.structure.DynamicObject;
 import io.github.meowhalla.player.PlayerContext;
 import io.github.meowhalla.projectiles.base_transformation.BaseTransformationStrategy;
 import io.github.meowhalla.projectiles.movement.MovementStrategy;
@@ -70,7 +70,7 @@ public class ProjectileContext implements DynamicObject {
 
     public void setBaseTransformation(BaseTransformationStrategy newBaseTransformation) {
         this.baseTransformation = newBaseTransformation;
-        hitbox.set(newBaseTransformation.apply(new Vector2(hitbox.x, hitbox.y)), hitbox.radius);
+        hitbox.set(newBaseTransformation.apply(getPosition()), hitbox.radius);
     }
 
     public void update(float delta) {
@@ -79,7 +79,7 @@ public class ProjectileContext implements DynamicObject {
             Vector2 v = new Vector2(movement.update(this, delta));
             v = transformation.apply(v);
             v = initialDirection == Direction.RIGHT ? v : new Vector2(-v.x, v.y);
-            hitbox.setPosition(hitbox.x + v.x, hitbox.y + v.y);
+            hitbox.setPosition(getX() + v.x, getY() + v.y);
         }
     }
 
@@ -115,6 +115,26 @@ public class ProjectileContext implements DynamicObject {
     @Override
     public float getHeight() {
         return getWidth();
+    }
+
+    @Override
+    public void setX(float v) {
+        getHitbox().x = v;
+    }
+
+    @Override
+    public void setY(float v) {
+        getHitbox().y = v;
+    }
+
+    @Override
+    public void setWidth(float v) {
+        getHitbox().radius = v / 2;
+    }
+
+    @Override
+    public void setHeight(float v) {
+        getHitbox().radius = v / 2;
     }
 
     public boolean isOffScreen() {

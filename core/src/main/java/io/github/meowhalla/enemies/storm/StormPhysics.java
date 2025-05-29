@@ -1,7 +1,7 @@
 package io.github.meowhalla.enemies.storm;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.game.ViewportUtils;
 import io.github.meowhalla.enemies.EnemyPhysics;
 
@@ -15,7 +15,7 @@ public class StormPhysics extends EnemyPhysics {
     @Override
     public void update(float delta) {
         super.update(delta);
-        if (ctx.leftBorder().x <= ViewportUtils.left() || ctx.rightBorder().x >= ViewportUtils.right()) {
+        if (ctx.leftBorder() <= ViewportUtils.left() || ctx.rightBorder() >= ViewportUtils.right()) {
             velocity.x = -velocity.x;
         }
         ctx.state.getPosition().x += velocity.x;

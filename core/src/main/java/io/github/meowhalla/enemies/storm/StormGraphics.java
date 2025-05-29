@@ -1,6 +1,6 @@
 package io.github.meowhalla.enemies.storm;
 
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.structure.graphics.AnimationSet;
 import io.github.meowhalla.structure.graphics.CharacterGraphics;
 import io.github.meowhalla.structure.states.Action;

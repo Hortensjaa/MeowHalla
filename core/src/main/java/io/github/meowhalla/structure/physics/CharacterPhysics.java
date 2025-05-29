@@ -1,7 +1,7 @@
 package io.github.meowhalla.structure.physics;
 
 import com.badlogic.gdx.math.Vector2;
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.structure.states.Direction;
 import lombok.Getter;
 

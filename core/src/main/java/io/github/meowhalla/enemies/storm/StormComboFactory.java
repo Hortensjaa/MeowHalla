@@ -1,9 +1,9 @@
 package io.github.meowhalla.enemies.storm;
 
 import io.github.meowhalla.game.GameContext;
-import io.github.meowhalla.structure.logic.Combo;
-import io.github.meowhalla.structure.logic.ComboFactory;
-import io.github.meowhalla.structure.logic.ComboStepFactory;
+import io.github.meowhalla.structure.combo_logic.Combo;
+import io.github.meowhalla.structure.combo_logic.ComboFactory;
+import io.github.meowhalla.structure.combo_logic.ComboStepFactory;
 import io.github.meowhalla.projectiles.ProjectileContext;
 import io.github.meowhalla.projectiles.base_transformation.Translation;
 
@@ -25,7 +25,7 @@ public class StormComboFactory implements ComboFactory {
         Function<ProjectileContext, ProjectileContext> randomizedRainHelper = (ProjectileContext p) -> {
             Translation t = new Translation(0, 0);
             double r = Math.random();
-            t.setX(10f + (float) (r * (ctx.getPosition().width - 20f)));
+            t.setX((float) (10f + r * (ctx.getWidth() / 2 - 20f)));
             p.setBaseTransformation(t);
             return p;
         };

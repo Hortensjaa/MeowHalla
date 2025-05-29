@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.structure.states.Direction;
 
 public abstract class CharacterGraphics implements Graphics {
@@ -21,13 +20,11 @@ public abstract class CharacterGraphics implements Graphics {
         int tileWidth = sheet.getWidth()/colsNum;
         int tileHeight = sheet.getHeight()/rowsNum;
         frames = TextureRegion.split(sheet, tileWidth, tileHeight);
-        ctx.getPosition().setWidth(tileWidth * scaling);
-        ctx.getPosition().setHeight(tileHeight * scaling);
+        ctx.setWidth(tileWidth * scaling);
+        ctx.setHeight(tileHeight * scaling);
     }
 
     public void render(SpriteBatch batch) {
-        Rectangle r = ctx.getPosition();
-
         TextureRegion currentFrame;
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = animationSet.get(ctx.getAction()).getKeyFrame(stateTime);
@@ -40,7 +37,7 @@ public abstract class CharacterGraphics implements Graphics {
             currentFrame.flip(true, false);
         }
 
-        batch.draw(currentFrame, r.x, r.y, r.width, r.height);
+        batch.draw(currentFrame, ctx.getX(), ctx.getY(), ctx.getWidth(), ctx.getHeight());
     }
 
     public void dispose() {

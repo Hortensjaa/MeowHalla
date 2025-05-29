@@ -1,7 +1,7 @@
 package io.github.meowhalla.player;
 
 import io.github.meowhalla.projectiles.Weapon;
-import io.github.meowhalla.structure.contexts.CharacterContext;
+import io.github.meowhalla.structure.character.CharacterContext;
 import io.github.meowhalla.structure.states.Direction;
 
 public class PlayerContext extends CharacterContext {
